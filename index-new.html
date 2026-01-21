@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="رائد - حلول رقمية متكاملة لرفع مبيعاتك وبناء حضورك الرقمي">
+    <title>Raed | رائد - حلول رقمية</title>
+    <link rel="stylesheet" href="styles-v2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- ========== LOADING SCREEN ========== -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">Raed | رائد</div>
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+
+    <!-- ========== STARS BACKGROUND ========== -->
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="nebula-bg"></div>
+
+    <!-- ========== MENU TOGGLE (TOP RIGHT) ========== -->
+    <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- ========== SIDE MENU ========== -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <nav class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <span class="menu-logo">Raed | رائد</span>
+            <button class="menu-close" id="menuClose" aria-label="إغلاق">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <ul class="menu-links">
+            <li><a href="#" data-section="home"><span class="menu-icon">🏠</span>الرئيسية</a></li>
+            <li><a href="#" data-section="services"><span class="menu-icon">🛒</span>الخدمات</a></li>
+            <li><a href="#" data-section="portfolio"><span class="menu-icon">📁</span>معرض الأعمال</a></li>
+            <li><a href="#" data-section="contact"><span class="menu-icon">💬</span>تواصل مع رائد</a></li>
+            <li><a href="#" data-modal="privacy"><span class="menu-icon">🔒</span>سياسة الخصوصية</a></li>
+            <li><a href="#" data-modal="refund"><span class="menu-icon">↩️</span>سياسة الإلغاء والاسترجاع</a></li>
+        </ul>
+    </nav>
+
+    <!-- ========== HOME BUTTON ========== -->
+    <button class="home-btn" id="homeBtn" aria-label="الرئيسية">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+    </button>
+
+    <!-- ========== SECTION: HOME ========== -->
+    <section class="section section-home active" id="sectionHome">
+        <div class="home-content">
+            <!-- Logo -->
+            <h1 class="main-logo">Raed | رائد</h1>
+            
+            <!-- Hero Card -->
+            <div class="hero-card">
+                <p class="hero-text">ابدأ رحلتك الآن</p>
+                <p class="hero-sub">حلول رقمية متكاملة لرفع مبيعاتك وبناء حضورك</p>
+            </div>
+
+            <!-- Main Portals -->
+            <div class="portals-grid">
+                <button class="portal-card" data-portal="services">
+                    <div class="portal-icon">🛒</div>
+                    <div class="portal-title">بوابة الخدمات الرقمية</div>
+                    <div class="portal-arrow">→</div>
+                </button>
+
+                <button class="portal-card" data-portal="portfolio">
+                    <div class="portal-icon">📁</div>
+                    <div class="portal-title">بوابة معرض الأعمال</div>
+                    <div class="portal-arrow">→</div>
+                </button>
+
+                <button class="portal-card" data-portal="contact">
+                    <div class="portal-icon">💬</div>
+                    <div class="portal-title">بوابة تواصل مع رائد</div>
+                    <div class="portal-arrow">→</div>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SECTION: SERVICES ========== -->
+    <section class="section section-inner" id="sectionServices">
+        <div class="section-header">
+            <h2 class="section-title">الخدمات الرقمية</h2>
+            <p class="section-desc">اختر الخدمة المناسبة لمشروعك</p>
+        </div>
+
+        <div class="cards-grid" id="servicesGrid">
+            <!-- Cards generated by JS -->
+        </div>
+
+        <button class="back-btn" data-back="home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l7-7-7-7"/>
+            </svg>
+            <span>العودة</span>
+        </button>
+    </section>
+
+    <!-- ========== SECTION: PORTFOLIO ========== -->
+    <section class="section section-inner" id="sectionPortfolio">
+        <div class="section-header">
+            <h2 class="section-title title-gold">معرض الأعمال</h2>
+            <p class="section-desc">نماذج من أعمالي السابقة</p>
+        </div>
+
+        <div class="cards-grid" id="portfolioGrid">
+            <!-- Cards generated by JS -->
+        </div>
+
+        <button class="back-btn" data-back="home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l7-7-7-7"/>
+            </svg>
+            <span>العودة</span>
+        </button>
+    </section>
+
+    <!-- ========== SECTION: CONTACT ========== -->
+    <section class="section section-inner" id="sectionContact">
+        <div class="section-header">
+            <h2 class="section-title title-green">تواصل مع رائد</h2>
+            <p class="section-desc">أسرع طريقة للتواصل والاستفسار</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-card">
+                <div class="contact-icon">💬</div>
+                <h3 class="contact-heading">مرحباً بك!</h3>
+                <p class="contact-text">
+                    أنا رائد، هنا لمساعدتك في تحقيق أهدافك الرقمية.
+                    <br>تواصل معي مباشرة عبر واتساب للاستفسار أو طلب خدمة.
+                </p>
+                <a href="https://wa.me/966536090915" target="_blank" class="whatsapp-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    <span>تواصل عبر واتساب</span>
+                </a>
+                <p class="contact-number">0536090915</p>
+            </div>
+        </div>
+
+        <button class="back-btn" data-back="home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l7-7-7-7"/>
+            </svg>
+            <span>العودة</span>
+        </button>
+    </section>
+
+    <!-- ========== DETAILS MODAL ========== -->
+    <div class="modal-overlay" id="detailsOverlay"></div>
+    <div class="details-modal" id="detailsModal">
+        <button class="modal-close" id="detailsClose" aria-label="إغلاق">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <div class="modal-content" id="detailsContent">
+            <!-- Content injected by JS -->
+        </div>
+    </div>
+
+    <!-- ========== PRIVACY MODAL ========== -->
+    <div class="modal-overlay" id="privacyOverlay"></div>
+    <div class="policy-modal" id="privacyModal">
+        <div class="policy-header">
+            <h3>🔒 سياسة الخصوصية</h3>
+            <button class="modal-close" data-close="privacy">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="policy-body">
+            <h4>جمع البيانات</h4>
+            <p>نجمع البيانات الشخصية فقط لغرض التواصل وتنفيذ الخدمات المطلوبة.</p>
+            <h4>استخدام البيانات</h4>
+            <p>لا نشارك بياناتك مع أي طرف ثالث إلا عند الضرورة لتنفيذ الخدمة.</p>
+            <h4>حقوقك</h4>
+            <p>يمكنك طلب تعديل أو حذف بياناتك في أي وقت عبر التواصل المباشر.</p>
+        </div>
+    </div>
+
+    <!-- ========== REFUND MODAL ========== -->
+    <div class="modal-overlay" id="refundOverlay"></div>
+    <div class="policy-modal" id="refundModal">
+        <div class="policy-header">
+            <h3>↩️ سياسة الإلغاء والاسترجاع</h3>
+            <button class="modal-close" data-close="refund">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="policy-body">
+            <h4>قبل بدء التنفيذ</h4>
+            <p>يمكن الإلغاء واسترداد المبلغ بالكامل قبل البدء في تنفيذ الخدمة.</p>
+            <h4>بعد بدء التنفيذ</h4>
+            <p>يتم احتساب قيمة الأعمال المنجزة ويُسترد الباقي.</p>
+            <h4>بعد التسليم</h4>
+            <p>لا يمكن الاسترجاع بعد تسليم العمل النهائي واعتماده.</p>
+        </div>
+    </div>
+
+    <script src="app-v2.js"></script>
+</body>
+</html>

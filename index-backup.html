@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Raed | رائد - حلول رقمية</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-ring"></div>
+            <p class="loader-text">جاري التحميل...</p>
+        </div>
+    </div>
+
+    <!-- Stars Background -->
+    <div class="stars-container" id="stars"></div>
+    
+    <!-- Nebula Background -->
+    <div class="nebula"></div>
+
+    <!-- Portal Transition Effect -->
+    <div class="portal-transition" id="portalTransition">
+        <div class="portal-transition-ring"></div>
+        <div class="portal-transition-glow"></div>
+    </div>
+
+    <!-- Global Menu Toggle -->
+    <button class="global-menu-toggle" id="globalMenuToggle" aria-label="القائمة">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+    </button>
+
+    <!-- Global Home Button -->
+    <button class="global-home-btn" id="globalHomeBtn" aria-label="البداية">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+    </button>
+
+    <!-- ========== STAGE 1: INTRO ========== -->
+    <section class="stage stage-intro active" id="stageIntro">
+        <div class="portal-wrapper">
+            <div class="portal-container" id="portal-container">
+                <svg class="portal-ring" viewBox="0 0 400 400" aria-hidden="true">
+                    <defs>
+                        <linearGradient id="portalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6CEBFF"/>
+                            <stop offset="50%" style="stop-color:#A88BFF"/>
+                            <stop offset="100%" style="stop-color:#6CEBFF"/>
+                        </linearGradient>
+                        <filter id="portalGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="6" result="blur"/>
+                            <feMerge>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="blur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle class="portal-circle p-outer" cx="200" cy="200" r="140" fill="none" stroke="url(#portalGradient)" stroke-width="4" filter="url(#portalGlow)"/>
+                    <circle class="portal-circle p-middle" cx="200" cy="200" r="115" fill="none" stroke="url(#portalGradient)" stroke-width="2" opacity="0.5"/>
+                    <circle class="portal-circle p-inner" cx="200" cy="200" r="90" fill="none" stroke="url(#portalGradient)" stroke-width="1.5" opacity="0.3"/>
+                    <circle class="portal-core" cx="200" cy="200" r="70" fill="rgba(108, 235, 255, 0.08)"/>
+                </svg>
+                <div class="portal-shimmer"></div>
+            </div>
+        </div>
+
+        <header class="intro-header">
+            <h1 class="logo-title">Raed | رائد</h1>
+            <p class="bio">
+                أنا رائد، أقدّم حلول رقمية ترفع مبيعاتك وتبني حضورك بثقة.<br>
+                اختر خدمتك وخلّنا نبدأ الرحلة.
+            </p>
+        </header>
+
+        <button class="cta-portal" id="btnStartJourney">
+            <span>ابدأ الرحلة</span>
+            <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l-7 7 7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- ========== STAGE 2: JOURNEY MAP ========== -->
+    <section class="stage stage-journey" id="stageJourney">
+        <div class="journey-header">
+            <h2 class="journey-title">اختر وجهتك</h2>
+            <p class="journey-desc">انقر على البوابة للدخول</p>
+        </div>
+
+        <svg class="space-path" viewBox="0 0 100 400" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#6CEBFF;stop-opacity:0.3"/>
+                    <stop offset="50%" style="stop-color:#A88BFF;stop-opacity:0.5"/>
+                    <stop offset="100%" style="stop-color:#E7D38A;stop-opacity:0.3"/>
+                </linearGradient>
+            </defs>
+            <path class="space-path-line" d="M50 0 Q30 100 50 150 Q70 200 50 250 Q30 300 50 350 L50 400" 
+                  stroke="url(#pathGradient)" stroke-width="2" fill="none" stroke-dasharray="8 4"/>
+        </svg>
+
+        <div class="journey-portals">
+            <button class="journey-portal-card" data-portal="services">
+                <div class="journey-portal-icon">🛒</div>
+                <div class="journey-portal-title">الخدمات الرقمية</div>
+            </button>
+
+            <button class="journey-portal-card" data-portal="works">
+                <div class="journey-portal-icon">📁</div>
+                <div class="journey-portal-title">معرض الأعمال</div>
+            </button>
+
+            <button class="journey-portal-card" data-portal="contact">
+                <div class="journey-portal-icon">💬</div>
+                <div class="journey-portal-title">تواصل مع رائد</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- ========== STAGE 3: SERVICES PORTAL ========== -->
+    <section class="stage stage-portal" id="stageServicesPortal">
+        <div class="portal-wrapper">
+            <div class="portal-container portal-medium">
+                <svg class="portal-ring" viewBox="0 0 400 400" aria-hidden="true">
+                    <circle class="portal-circle p-outer" cx="200" cy="200" r="140" fill="none" stroke="url(#portalGradient)" stroke-width="4" filter="url(#portalGlow)"/>
+                    <circle class="portal-circle p-middle" cx="200" cy="200" r="115" fill="none" stroke="url(#portalGradient)" stroke-width="2" opacity="0.5"/>
+                    <circle class="portal-circle p-inner" cx="200" cy="200" r="90" fill="none" stroke="url(#portalGradient)" stroke-width="1.5" opacity="0.3"/>
+                </svg>
+                <div class="portal-shimmer"></div>
+                <div class="portal-icon">🛒</div>
+            </div>
+        </div>
+
+        <div class="portal-text">
+            <h2 class="portal-title">الخدمات الرقمية</h2>
+            <p class="portal-desc">استعرض جميع الخدمات المتاحة</p>
+        </div>
+
+        <button class="cta-portal" id="btnEnterServices">
+            <span>ادخل الخدمات</span>
+            <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l-7 7 7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- ========== STAGE 4: SERVICES (3D GRID) ========== -->
+    <section class="stage stage-services" id="stageServices">
+        <!-- Character Background -->
+        <div class="character-bg" id="characterBg">
+            <svg class="character-svg-bg" viewBox="0 0 200 400" aria-hidden="true">
+                <defs>
+                    <linearGradient id="charGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1a1a2e"/>
+                        <stop offset="100%" style="stop-color:#0f0f1a"/>
+                    </linearGradient>
+                </defs>
+                <ellipse cx="100" cy="50" rx="28" ry="32" fill="url(#charGradient)"/>
+                <path d="M60 90 Q50 140 55 200 L70 200 L80 150 L100 155 L120 150 L130 200 L145 200 Q150 140 140 90 Z" fill="url(#charGradient)"/>
+                <path d="M60 95 Q40 130 38 180 Q35 205 45 210 L52 200 Q54 180 56 160 Q60 130 68 105" fill="url(#charGradient)"/>
+                <path d="M140 95 Q165 75 178 45 Q185 25 175 20 L165 28 Q162 45 155 60 Q145 80 132 92" fill="url(#charGradient)"/>
+                <circle cx="175" cy="25" r="12" fill="#6CEBFF" opacity="0.3" class="hand-glow"/>
+                <path d="M75 198 L70 300 L60 380 L80 385 L90 305 L100 240" fill="url(#charGradient)"/>
+                <path d="M125 198 L130 300 L140 380 L120 385 L110 305 L100 240" fill="url(#charGradient)"/>
+            </svg>
+        </div>
+
+        <!-- Page Header -->
+        <div class="grid-page-header">
+            <h2 class="grid-page-title">الخدمات الرقمية</h2>
+            <p class="grid-page-desc">اختر الخدمة المناسبة لك</p>
+        </div>
+
+        <!-- 3D Grid -->
+        <div class="grid3d-wrapper" id="servicesGridWrapper">
+            <div class="grid3d" id="servicesGrid"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="grid-nav">
+            <button class="btn-nav-secondary" id="btnBackToJourneyFromServices">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l7-7-7-7"/>
+                </svg>
+                <span>الخريطة</span>
+            </button>
+            <button class="btn-nav-primary" id="btnToWorksFromServices">
+                <span>معرض الأعمال</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l-7 7 7 7"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ========== STAGE 5: WORKS PORTAL ========== -->
+    <section class="stage stage-portal" id="stageWorksPortal">
+        <div class="portal-wrapper">
+            <div class="portal-container portal-medium">
+                <svg class="portal-ring" viewBox="0 0 400 400" aria-hidden="true">
+                    <circle class="portal-circle p-outer" cx="200" cy="200" r="140" fill="none" stroke="url(#portalGradient)" stroke-width="4" filter="url(#portalGlow)"/>
+                    <circle class="portal-circle p-middle" cx="200" cy="200" r="115" fill="none" stroke="url(#portalGradient)" stroke-width="2" opacity="0.5"/>
+                    <circle class="portal-circle p-inner" cx="200" cy="200" r="90" fill="none" stroke="url(#portalGradient)" stroke-width="1.5" opacity="0.3"/>
+                </svg>
+                <div class="portal-shimmer"></div>
+                <div class="portal-icon">📁</div>
+            </div>
+        </div>
+
+        <div class="portal-text">
+            <h2 class="portal-title">معرض الأعمال</h2>
+            <p class="portal-desc">استعرض نماذج من أعمالي السابقة</p>
+        </div>
+
+        <button class="cta-portal" id="btnEnterWorks">
+            <span>ادخل المعرض</span>
+            <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l-7 7 7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- ========== STAGE 6: WORKS (3D GRID) ========== -->
+    <section class="stage stage-works" id="stageWorks">
+        <!-- Character Background -->
+        <div class="character-bg">
+            <svg class="character-svg-bg" viewBox="0 0 200 400" aria-hidden="true">
+                <ellipse cx="100" cy="50" rx="28" ry="32" fill="url(#charGradient)"/>
+                <path d="M60 90 Q50 140 55 200 L70 200 L80 150 L100 155 L120 150 L130 200 L145 200 Q150 140 140 90 Z" fill="url(#charGradient)"/>
+                <path d="M60 95 Q40 130 38 180 Q35 205 45 210 L52 200 Q54 180 56 160 Q60 130 68 105" fill="url(#charGradient)"/>
+                <path d="M140 95 Q165 75 178 45 Q185 25 175 20 L165 28 Q162 45 155 60 Q145 80 132 92" fill="url(#charGradient)"/>
+                <circle cx="175" cy="25" r="12" fill="#A88BFF" opacity="0.3" class="hand-glow"/>
+                <path d="M75 198 L70 300 L60 380 L80 385 L90 305 L100 240" fill="url(#charGradient)"/>
+                <path d="M125 198 L130 300 L140 380 L120 385 L110 305 L100 240" fill="url(#charGradient)"/>
+            </svg>
+        </div>
+
+        <!-- Page Header -->
+        <div class="grid-page-header">
+            <h2 class="grid-page-title works-title">معرض الأعمال</h2>
+            <p class="grid-page-desc">نماذج من أعمالي السابقة</p>
+        </div>
+
+        <!-- 3D Grid -->
+        <div class="grid3d-wrapper" id="worksGridWrapper">
+            <div class="grid3d grid3d-works" id="worksGrid"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="grid-nav">
+            <button class="btn-nav-secondary" id="btnBackToJourneyFromWorks">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l7-7-7-7"/>
+                </svg>
+                <span>الخريطة</span>
+            </button>
+            <button class="btn-nav-primary" id="btnToContactFromWorks">
+                <span>تواصل</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l-7 7 7 7"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ========== STAGE 7: CONTACT PORTAL ========== -->
+    <section class="stage stage-portal" id="stageContactPortal">
+        <div class="portal-wrapper">
+            <div class="portal-container portal-medium">
+                <svg class="portal-ring" viewBox="0 0 400 400" aria-hidden="true">
+                    <circle class="portal-circle p-outer" cx="200" cy="200" r="140" fill="none" stroke="url(#portalGradient)" stroke-width="4" filter="url(#portalGlow)"/>
+                    <circle class="portal-circle p-middle" cx="200" cy="200" r="115" fill="none" stroke="url(#portalGradient)" stroke-width="2" opacity="0.5"/>
+                    <circle class="portal-circle p-inner" cx="200" cy="200" r="90" fill="none" stroke="url(#portalGradient)" stroke-width="1.5" opacity="0.3"/>
+                </svg>
+                <div class="portal-shimmer"></div>
+                <div class="portal-icon">💬</div>
+            </div>
+        </div>
+
+        <div class="portal-text">
+            <h2 class="portal-title">تواصل مع رائد</h2>
+            <p class="portal-desc">ارسل تفاصيل طلبك وسأرد عليك بأسرع وقت</p>
+        </div>
+
+        <button class="cta-portal" id="btnEnterContact">
+            <span>ابدأ التواصل</span>
+            <svg class="cta-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l-7 7 7 7"/>
+            </svg>
+        </button>
+    </section>
+
+    <!-- ========== STAGE 8: CONTACT ========== -->
+    <section class="stage stage-contact" id="stageContact">
+        <div class="contact-content">
+            <div class="contact-header">
+                <div class="contact-icon">💬</div>
+                <h2 class="contact-title">تواصل مع رائد</h2>
+                <p class="contact-desc">اختر الطريقة الأنسب للتواصل</p>
+            </div>
+
+            <div class="contact-methods">
+                <a href="https://wa.me/966536090915" target="_blank" class="contact-card contact-whatsapp">
+                    <div class="contact-card-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-card-text">
+                        <span class="contact-card-title">واتساب</span>
+                        <span class="contact-card-sub">أسرع طريقة للتواصل</span>
+                    </div>
+                </a>
+
+                <a href="mailto:raed@raed.digital" class="contact-card contact-email">
+                    <div class="contact-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="contact-card-text">
+                        <span class="contact-card-title">بريد إلكتروني</span>
+                        <span class="contact-card-sub">raed@raed.digital</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="contact-form-section">
+                <h3 class="contact-form-title">أو أرسل رسالة مباشرة</h3>
+                <form id="contactForm" class="contact-form">
+                    <input type="text" name="name" class="contact-input" placeholder="اسمك الكريم" required>
+                    <input type="tel" name="phone" class="contact-input" placeholder="رقم الجوال" required>
+                    <textarea name="message" class="contact-textarea" placeholder="اكتب رسالتك هنا..." rows="4" required></textarea>
+                    <button type="submit" class="contact-submit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        <span>إرسال عبر واتساب</span>
+                    </button>
+                </form>
+            </div>
+
+            <button class="btn-back-simple" id="btnBackFromContact">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l7-7-7-7"/>
+                </svg>
+                <span>العودة للخريطة</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- ========== MAIN MENU ========== -->
+    <nav class="main-menu" id="mainMenu">
+        <div class="menu-header">
+            <span class="menu-title">القائمة</span>
+            <button class="menu-close-btn" id="menuCloseBtn" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="menu-items">
+            <button class="menu-item" data-stage="intro">
+                <span class="menu-icon">🏠</span>
+                <span>البداية</span>
+            </button>
+            <button class="menu-item" data-stage="journey">
+                <span class="menu-icon">🗺️</span>
+                <span>خريطة الرحلة</span>
+            </button>
+            <button class="menu-item" data-stage="services">
+                <span class="menu-icon">🛒</span>
+                <span>الخدمات</span>
+            </button>
+            <button class="menu-item" data-stage="works">
+                <span class="menu-icon">📁</span>
+                <span>معرض أعمالي</span>
+            </button>
+            <button class="menu-item" data-stage="contact">
+                <span class="menu-icon">💬</span>
+                <span>تواصل مع رائد</span>
+            </button>
+            <button class="menu-item" data-stage="orders">
+                <span class="menu-icon">📋</span>
+                <span>طلباتي</span>
+            </button>
+            <button class="menu-item" data-modal="privacy">
+                <span class="menu-icon">🔒</span>
+                <span>سياسة الخصوصية</span>
+            </button>
+            <button class="menu-item" data-modal="refund">
+                <span class="menu-icon">↩️</span>
+                <span>سياسة الإلغاء والاسترجاع</span>
+            </button>
+        </div>
+    </nav>
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- ========== SERVICE DETAILS PANEL ========== -->
+    <div class="panel-overlay" id="panelOverlay"></div>
+    <div class="details-panel" id="detailsPanel">
+        <div class="panel-handle"></div>
+        <button class="panel-close" id="panelClose" aria-label="إغلاق">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+
+        <div class="panel-content" id="panelContent">
+            <div class="panel-header">
+                <div class="panel-icon" id="panelIcon">🛒</div>
+                <div class="panel-titles">
+                    <h2 class="panel-title" id="panelTitle">عنوان الخدمة</h2>
+                    <p class="panel-subtitle" id="panelSubtitle">العنوان الفرعي</p>
+                </div>
+            </div>
+
+            <p class="panel-description" id="panelDescription">وصف الخدمة</p>
+
+            <ul class="panel-features" id="panelFeatures"></ul>
+
+            <div class="panel-meta">
+                <div class="meta-item">
+                    <span class="meta-label">المدة المتوقعة</span>
+                    <span class="meta-value" id="panelDuration">3-5 أيام</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">يبدأ من</span>
+                    <span class="meta-value" id="panelPrice">حسب المتطلبات</span>
+                </div>
+            </div>
+
+            <div class="panel-actions">
+                <button class="btn-primary" id="btnOrderForm">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="12" y1="18" x2="12" y2="12"/>
+                        <line x1="9" y1="15" x2="15" y2="15"/>
+                    </svg>
+                    <span>اطلب الخدمة</span>
+                </button>
+                <button class="btn-secondary" id="btnPanelBack">
+                    <span>رجوع</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== ORDER FORM MODAL ========== -->
+    <div class="modal-overlay" id="orderFormOverlay"></div>
+    <div class="modal" id="orderFormModal">
+        <div class="modal-header">
+            <h3 class="modal-title">طلب الخدمة</h3>
+            <button class="modal-close" id="orderFormClose" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="orderForm" class="order-form">
+                <input type="hidden" id="orderService" name="service">
+                <div class="form-group">
+                    <label for="orderName">الاسم الكريم</label>
+                    <input type="text" id="orderName" name="name" required placeholder="أدخل اسمك">
+                </div>
+                <div class="form-group">
+                    <label for="orderPhone">رقم الجوال</label>
+                    <input type="tel" id="orderPhone" name="phone" required placeholder="05xxxxxxxx">
+                </div>
+                <div class="form-group">
+                    <label for="orderEmail">البريد الإلكتروني</label>
+                    <input type="email" id="orderEmail" name="email" placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="orderNotes">ملاحظات إضافية</label>
+                    <textarea id="orderNotes" name="notes" rows="3" placeholder="أي تفاصيل تود إضافتها..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary btn-full">
+                        <span>حفظ الطلب</span>
+                    </button>
+                    <button type="button" class="btn-whatsapp btn-full" id="btnWhatsappOrder">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        <span>اطلب عبر واتساب</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== ORDERS MODAL ========== -->
+    <div class="modal-overlay" id="ordersOverlay"></div>
+    <div class="modal modal-large" id="ordersModal">
+        <div class="modal-header">
+            <h3 class="modal-title">📋 طلباتي</h3>
+            <button class="modal-close" data-close="orders" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body modal-scroll">
+            <div class="orders-list" id="ordersList"></div>
+            <div class="empty-state" id="ordersEmpty">
+                <span class="empty-icon">📭</span>
+                <p>لا توجد طلبات حتى الآن</p>
+                <button class="btn-secondary" id="btnBrowseServices">تصفح الخدمات</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PRIVACY MODAL ========== -->
+    <div class="modal-overlay" id="privacyOverlay"></div>
+    <div class="modal" id="privacyModal">
+        <div class="modal-header">
+            <h3 class="modal-title">🔒 سياسة الخصوصية</h3>
+            <button class="modal-close" data-close="privacy" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body modal-scroll">
+            <div class="policy-content">
+                <h4>جمع البيانات</h4>
+                <p>نجمع البيانات فقط لغرض التواصل وتنفيذ الخدمة.</p>
+                <h4>مشاركة البيانات</h4>
+                <p>لا نشارك بياناتك مع طرف ثالث إلا للضرورة.</p>
+                <h4>حقوقك</h4>
+                <p>يمكنك طلب تعديل أو حذف بياناتك في أي وقت.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== REFUND MODAL ========== -->
+    <div class="modal-overlay" id="refundOverlay"></div>
+    <div class="modal" id="refundModal">
+        <div class="modal-header">
+            <h3 class="modal-title">↩️ سياسة الإلغاء والاسترجاع</h3>
+            <button class="modal-close" data-close="refund" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body modal-scroll">
+            <div class="policy-content">
+                <h4>قبل بدء التنفيذ</h4>
+                <p>يمكن الإلغاء واسترداد المبلغ بالكامل.</p>
+                <h4>بعد بدء التنفيذ</h4>
+                <p>يتم احتساب قيمة الأعمال المنجزة.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PORTFOLIO DETAIL MODAL ========== -->
+    <div class="modal-overlay" id="portfolioDetailOverlay"></div>
+    <div class="modal" id="portfolioDetailModal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="portfolioDetailTitle">تفاصيل العمل</h3>
+            <button class="modal-close" data-close="portfolioDetail" aria-label="إغلاق">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body modal-scroll">
+            <div class="portfolio-detail-content" id="portfolioDetailContent"></div>
+            <div class="portfolio-detail-actions">
+                <button class="btn-whatsapp btn-full" id="btnPortfolioWhatsapp">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    <span>استفسر عن مشروع مشابه</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
