@@ -1,35 +1,41 @@
-backend:
+﻿backend:
   name: git-gateway
   branch: main
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+local_backend: false
+
 collections:
   - name: "services"
     label: "الخدمات"
     folder: "content/services"
     create: true
+    slug: "{{slug}}"
     fields:
       - { label: "العنوان", name: "title", widget: "string" }
-      - { label: "الوصف المختصر", name: "summary", widget: "string" }
+      - { label: "وصف مختصر", name: "summary", widget: "string", required: false }
+      - { label: "الصورة", name: "image", widget: "image", required: false }
       - { label: "الوصف", name: "body", widget: "markdown" }
-      - { label: "الصورة", name: "image", widget: "image" }
 
   - name: "projects"
     label: "معرض الأعمال"
     folder: "content/projects"
     create: true
+    slug: "{{slug}}"
     fields:
       - { label: "العنوان", name: "title", widget: "string" }
+      - { label: "الصورة", name: "image", widget: "image", required: false }
       - { label: "المحتوى", name: "body", widget: "markdown" }
-      - { label: "الصورة", name: "image", widget: "image" }
 
   - name: "contact"
     label: "تواصل معي"
-    folder: "content/contact"
-    create: true
-    fields:
-      - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
-      - { label: "الإيميل", name: "email", widget: "string" }
-      - { label: "الرسالة الترحيبية", name: "message", widget: "markdown" }
+    files:
+      - label: "بيانات التواصل"
+        name: "info"
+        file: "content/contact/info.md"
+        fields:
+          - { label: "واتساب", name: "whatsapp", widget: "string", required: false }
+          - { label: "الإيميل", name: "email", widget: "string", required: false }
+          - { label: "رسالة ترحيبية", name: "welcome_message", widget: "text", required: false }
