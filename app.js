@@ -2,7 +2,6 @@
  * =====================================================
  * RAED | رائد - Portal Journey v2
  * Hash-based Routing, No Orbits, Clean UX
- * With Dynamic Content Loading from CMS
  * =====================================================
  */
 
@@ -10,80 +9,184 @@
 // CONFIGURATION
 // =====================================================
 
-let CONFIG = {
+const CONFIG = {
     whatsapp: '+966536090915',
     email: 'raed@example.com',
     starCount: 80
 };
 
 // =====================================================
-// SERVICES DATA (سيتم تحميلها من الملفات)
+// SERVICES DATA
 // =====================================================
 
-let SERVICES = [];
-
-// =====================================================
-// WORKS DATA (سيتم تحميلها من الملفات)
-// =====================================================
-
-let WORKS = [];
-
-// =====================================================
-// FALLBACK DATA (في حال فشل التحميل)
-// =====================================================
-
-const FALLBACK_SERVICES = [
+const SERVICES = [
     {
-        id: 1, title: 'صفحات هبوط', subtitle: 'Landing Pages', icon: '📄',
+        id: 1,
+        title: 'صفحات هبوط',
+        subtitle: 'Landing Pages',
+        icon: '📄',
         description: 'صفحات هبوط احترافية مصممة لتحويل الزوار إلى عملاء. تصميم جذاب وسرعة عالية.',
-        features: ['تصميم مخصص يعكس هوية علامتك', 'متجاوب مع جميع الأجهزة', 'سرعة تحميل عالية', 'تحسين لمحركات البحث SEO', 'ربط مع أدوات التحليل'],
-        duration: '3-5 أيام', price: 'من 800 ريال'
+        features: [
+            'تصميم مخصص يعكس هوية علامتك',
+            'متجاوب مع جميع الأجهزة',
+            'سرعة تحميل عالية',
+            'تحسين لمحركات البحث SEO',
+            'ربط مع أدوات التحليل'
+        ],
+        duration: '3-5 أيام',
+        price: 'من 800 ريال'
     },
     {
-        id: 2, title: 'تصميم متجر', subtitle: 'E-Commerce Store', icon: '🛒',
+        id: 2,
+        title: 'تصميم متجر',
+        subtitle: 'E-Commerce Store',
+        icon: '🛒',
         description: 'متجر إلكتروني متكامل بتجربة شراء سلسة من الواجهة حتى الدفع.',
-        features: ['واجهة رئيسية جذابة', 'صفحات منتجات احترافية', 'تجربة مستخدم ممتازة للجوال', 'صفحات السياسات جاهزة', 'تسليم جاهز للانطلاق'],
-        duration: '5-10 أيام', price: 'من 1500 ريال'
+        features: [
+            'واجهة رئيسية جذابة',
+            'صفحات منتجات احترافية',
+            'تجربة مستخدم ممتازة للجوال',
+            'صفحات السياسات جاهزة',
+            'تسليم جاهز للانطلاق'
+        ],
+        duration: '5-10 أيام',
+        price: 'من 1500 ريال'
     },
     {
-        id: 3, title: 'خدمات قوقل', subtitle: 'Google Services', icon: '📍',
+        id: 3,
+        title: 'خدمات قوقل',
+        subtitle: 'Google Services',
+        icon: '📍',
         description: 'إعداد وتحسين حسابك على قوقل بزنس وتحسين ظهورك في نتائج البحث.',
-        features: ['إعداد Google Business Profile', 'تحسين الظهور المحلي', 'إدارة التقييمات والردود', 'تحليلات وتقارير شهرية', 'صور ومعلومات محدثة'],
-        duration: '2-4 أيام', price: 'من 500 ريال'
+        features: [
+            'إعداد Google Business Profile',
+            'تحسين الظهور المحلي',
+            'إدارة التقييمات والردود',
+            'تحليلات وتقارير شهرية',
+            'صور ومعلومات محدثة'
+        ],
+        duration: '2-4 أيام',
+        price: 'من 500 ريال'
     },
     {
-        id: 4, title: 'حملات إعلانية', subtitle: 'Ad Campaigns', icon: '📢',
+        id: 4,
+        title: 'حملات إعلانية',
+        subtitle: 'Ad Campaigns',
+        icon: '📢',
         description: 'حملات إعلانية مدروسة على جوجل وسناب وإنستغرام لجذب العملاء المناسبين.',
-        features: ['دراسة الجمهور المستهدف', 'تصميم إعلانات جذابة', 'إدارة الميزانية بذكاء', 'تقارير أداء دورية', 'تحسين مستمر للنتائج'],
-        duration: 'مستمر', price: 'من 1000 ريال/شهر'
+        features: [
+            'دراسة الجمهور المستهدف',
+            'تصميم إعلانات جذابة',
+            'إدارة الميزانية بذكاء',
+            'تقارير أداء دورية',
+            'تحسين مستمر للنتائج'
+        ],
+        duration: 'مستمر',
+        price: 'من 1000 ريال/شهر'
     },
     {
-        id: 5, title: 'تصميم هوية', subtitle: 'Brand Identity', icon: '🎨',
+        id: 5,
+        title: 'تصميم هوية',
+        subtitle: 'Brand Identity',
+        icon: '🎨',
         description: 'هوية بصرية متكاملة تعكس قيم علامتك وتميزك عن المنافسين.',
-        features: ['شعار احترافي', 'لوحة ألوان متناسقة', 'خطوط وأنماط مميزة', 'دليل الهوية البصرية', 'تطبيقات الهوية'],
-        duration: '5-7 أيام', price: 'من 1200 ريال'
+        features: [
+            'شعار احترافي',
+            'لوحة ألوان متناسقة',
+            'خطوط وأنماط مميزة',
+            'دليل الهوية البصرية',
+            'تطبيقات الهوية'
+        ],
+        duration: '5-7 أيام',
+        price: 'من 1200 ريال'
     },
     {
-        id: 6, title: 'ربط واتساب', subtitle: 'WhatsApp Integration', icon: '💬',
+        id: 6,
+        title: 'ربط واتساب',
+        subtitle: 'WhatsApp Integration',
+        icon: '💬',
         description: 'ربط موقعك أو متجرك بالواتساب لتسهيل التواصل مع العملاء.',
-        features: ['زر واتساب ثابت', 'رسائل ترحيب تلقائية', 'ربط مع نماذج الطلب', 'إشعارات الطلبات', 'دعم متعدد الأرقام'],
-        duration: '1-2 يوم', price: 'من 300 ريال'
+        features: [
+            'زر واتساب ثابت',
+            'رسائل ترحيب تلقائية',
+            'ربط مع نماذج الطلب',
+            'إشعارات الطلبات',
+            'دعم متعدد الأرقام'
+        ],
+        duration: '1-2 يوم',
+        price: 'من 300 ريال'
     },
     {
-        id: 7, title: 'استشارات', subtitle: 'Consulting', icon: '💡',
+        id: 7,
+        title: 'استشارات',
+        subtitle: 'Consulting',
+        icon: '💡',
         description: 'جلسات استشارية لمساعدتك في بناء استراتيجية رقمية فعالة.',
-        features: ['تحليل الوضع الحالي', 'خطة عمل مفصلة', 'نصائح وتوجيهات عملية', 'متابعة وتقييم', 'دعم مستمر'],
-        duration: 'جلسة 60 دقيقة', price: 'من 200 ريال'
+        features: [
+            'تحليل الوضع الحالي',
+            'خطة عمل مفصلة',
+            'نصائح وتوجيهات عملية',
+            'متابعة وتقييم',
+            'دعم مستمر'
+        ],
+        duration: 'جلسة 60 دقيقة',
+        price: 'من 200 ريال'
     }
 ];
 
-const FALLBACK_WORKS = [
-    { id: 1, title: 'متجر أزياء راقٍ', subtitle: 'Fashion Store', icon: '👗', description: 'متجر أزياء نسائية بتصميم أنيق وتجربة تسوق سلسة.', tags: ['تصميم متجر', 'Shopify', 'UI/UX'] },
-    { id: 2, title: 'صفحة هبوط منتج', subtitle: 'Product Landing', icon: '🚀', description: 'صفحة هبوط لإطلاق منتج تقني مع رسوم متحركة جذابة.', tags: ['صفحة هبوط', 'تحويلات', 'Motion'] },
-    { id: 3, title: 'حملة إعلانية', subtitle: 'Ad Campaign', icon: '📈', description: 'حملة إعلانية متكاملة حققت زيادة 300% في المبيعات.', tags: ['إعلانات', 'Google Ads', 'تحسين'] },
-    { id: 4, title: 'هوية لمطعم', subtitle: 'Restaurant Brand', icon: '🍽️', description: 'هوية بصرية كاملة لمطعم راقٍ مع جميع التطبيقات.', tags: ['هوية بصرية', 'شعار', 'تصميم'] },
-    { id: 5, title: 'موقع شركة', subtitle: 'Corporate Site', icon: '🏢', description: 'موقع مؤسسي احترافي مع صفحات متعددة وبوابة خدمات.', tags: ['موقع', 'WordPress', 'SEO'] },
-    { id: 6, title: 'متجر عطور', subtitle: 'Perfume Store', icon: '🌸', description: 'متجر عطور فاخر بتصميم يعكس الأناقة والفخامة.', tags: ['تصميم متجر', 'Salla', 'UI/UX'] }
+// =====================================================
+// WORKS DATA
+// =====================================================
+
+const WORKS = [
+    {
+        id: 1,
+        title: 'متجر أزياء راقٍ',
+        subtitle: 'Fashion Store',
+        icon: '👗',
+        description: 'متجر أزياء نسائية بتصميم أنيق وتجربة تسوق سلسة.',
+        tags: ['تصميم متجر', 'Shopify', 'UI/UX']
+    },
+    {
+        id: 2,
+        title: 'صفحة هبوط منتج',
+        subtitle: 'Product Landing',
+        icon: '🚀',
+        description: 'صفحة هبوط لإطلاق منتج تقني مع رسوم متحركة جذابة.',
+        tags: ['صفحة هبوط', 'تحويلات', 'Motion']
+    },
+    {
+        id: 3,
+        title: 'حملة إعلانية',
+        subtitle: 'Ad Campaign',
+        icon: '📈',
+        description: 'حملة إعلانية متكاملة حققت زيادة 300% في المبيعات.',
+        tags: ['إعلانات', 'Google Ads', 'تحسين']
+    },
+    {
+        id: 4,
+        title: 'هوية لمطعم',
+        subtitle: 'Restaurant Brand',
+        icon: '🍽️',
+        description: 'هوية بصرية كاملة لمطعم راقٍ مع جميع التطبيقات.',
+        tags: ['هوية بصرية', 'شعار', 'تصميم']
+    },
+    {
+        id: 5,
+        title: 'موقع شركة',
+        subtitle: 'Corporate Site',
+        icon: '🏢',
+        description: 'موقع مؤسسي احترافي مع صفحات متعددة وبوابة خدمات.',
+        tags: ['موقع', 'WordPress', 'SEO']
+    },
+    {
+        id: 6,
+        title: 'متجر عطور',
+        subtitle: 'Perfume Store',
+        icon: '🌸',
+        description: 'متجر عطور فاخر بتصميم يعكس الأناقة والفخامة.',
+        tags: ['تصميم متجر', 'Salla', 'UI/UX']
+    }
 ];
 
 // =====================================================
@@ -106,150 +209,10 @@ const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 // =====================================================
-// MARKDOWN PARSER (بسيط لقراءة front matter)
-// =====================================================
-
-function parseMarkdown(content) {
-    const match = content.match(/^---\n([\s\S]*?)\n---/);
-    if (!match) return null;
-    
-    const frontMatter = match[1];
-    const data = {};
-    
-    let currentKey = null;
-    let inArray = false;
-    let arrayItems = [];
-    
-    frontMatter.split('\n').forEach(line => {
-        // Check for array item
-        if (line.match(/^\s+-\s+/)) {
-            const value = line.replace(/^\s+-\s+/, '').replace(/^["']|["']$/g, '').trim();
-            if (inArray && currentKey) {
-                arrayItems.push(value);
-            }
-            return;
-        }
-        
-        // Save previous array if exists
-        if (inArray && currentKey && arrayItems.length > 0) {
-            data[currentKey] = arrayItems;
-            arrayItems = [];
-            inArray = false;
-        }
-        
-        // Parse key: value
-        const kvMatch = line.match(/^(\w+):\s*(.*)$/);
-        if (kvMatch) {
-            currentKey = kvMatch[1];
-            const value = kvMatch[2].replace(/^["']|["']$/g, '').trim();
-            
-            if (value === '' || value === '[]') {
-                // This might be start of array
-                inArray = true;
-                arrayItems = [];
-            } else {
-                data[currentKey] = value;
-                inArray = false;
-            }
-        }
-    });
-    
-    // Save last array if exists
-    if (inArray && currentKey && arrayItems.length > 0) {
-        data[currentKey] = arrayItems;
-    }
-    
-    return data;
-}
-
-// =====================================================
-// CONTENT LOADING
-// =====================================================
-
-async function loadContent() {
-    try {
-        // Load services
-        const serviceFiles = [
-            '01-landing-pages.md', '02-ecommerce.md', '03-google.md',
-            '04-ads.md', '05-brand.md', '06-whatsapp.md', '07-consulting.md'
-        ];
-        
-        const servicesData = await Promise.all(
-            serviceFiles.map(async (file, index) => {
-                try {
-                    const response = await fetch(`/content/services/${file}`);
-                    if (!response.ok) return null;
-                    const text = await response.text();
-                    const data = parseMarkdown(text);
-                    if (data) {
-                        return { ...data, id: index + 1 };
-                    }
-                    return null;
-                } catch (e) {
-                    return null;
-                }
-            })
-        );
-        
-        SERVICES = servicesData.filter(s => s !== null);
-        if (SERVICES.length === 0) SERVICES = FALLBACK_SERVICES;
-        
-        // Load projects
-        const projectFiles = [
-            '01-fashion.md', '02-landing.md', '03-campaign.md',
-            '04-restaurant.md', '05-corporate.md', '06-perfume.md'
-        ];
-        
-        const projectsData = await Promise.all(
-            projectFiles.map(async (file, index) => {
-                try {
-                    const response = await fetch(`/content/projects/${file}`);
-                    if (!response.ok) return null;
-                    const text = await response.text();
-                    const data = parseMarkdown(text);
-                    if (data) {
-                        return { ...data, id: index + 1 };
-                    }
-                    return null;
-                } catch (e) {
-                    return null;
-                }
-            })
-        );
-        
-        WORKS = projectsData.filter(p => p !== null);
-        if (WORKS.length === 0) WORKS = FALLBACK_WORKS;
-        
-        // Load contact info
-        try {
-            const contactResponse = await fetch('/content/contact/info.md');
-            if (contactResponse.ok) {
-                const contactText = await contactResponse.text();
-                const contactData = parseMarkdown(contactText);
-                if (contactData) {
-                    if (contactData.whatsapp) CONFIG.whatsapp = contactData.whatsapp;
-                    if (contactData.email) CONFIG.email = contactData.email;
-                }
-            }
-        } catch (e) {
-            console.log('Using default contact info');
-        }
-        
-    } catch (error) {
-        console.log('Using fallback data');
-        SERVICES = FALLBACK_SERVICES;
-        WORKS = FALLBACK_WORKS;
-    }
-}
-
-// =====================================================
 // INITIALIZATION
 // =====================================================
 
-async function init() {
-    // Load content from files first
-    await loadContent();
-    
+function init() {
     generateStars();
     renderServices();
     renderWorks();
@@ -300,24 +263,46 @@ function navigateToStage(stageName, updateHash = true) {
     
     // Update hash without triggering hashchange
     if (updateHash && window.location.hash.slice(1) !== stageName) {
-        history.pushState(null, '', `#${stageName}`);
+        history.pushState(null, '', '#' + stageName);
     }
     
-    // Remove is-active from all stages
-    $$('.stage').forEach(stage => {
-        stage.classList.remove('is-active');
-    });
+    // Close panel if open
+    closePanel();
     
-    // Add is-active to target stage
-    const targetStage = $(`[data-stage="${stageName}"]`);
-    if (targetStage) {
-        targetStage.classList.add('is-active');
+    // Transition animation
+    const transition = $('.portal-transition');
+    if (transition && state.currentStage !== stageName) {
+        transition.classList.add('is-active');
+        
+        setTimeout(() => {
+            // Hide all stages
+            $$('.stage').forEach(stage => stage.classList.remove('is-active'));
+            
+            // Show target stage
+            const targetStage = $('#stage' + capitalize(stageName));
+            if (targetStage) {
+                targetStage.classList.add('is-active');
+            }
+            
+            state.currentStage = stageName;
+            
+            setTimeout(() => {
+                transition.classList.remove('is-active');
+            }, 400);
+        }, 300);
+    } else {
+        // No transition for initial load
+        $$('.stage').forEach(stage => stage.classList.remove('is-active'));
+        const targetStage = $('#stage' + capitalize(stageName));
+        if (targetStage) {
+            targetStage.classList.add('is-active');
+        }
+        state.currentStage = stageName;
     }
-    
-    state.currentStage = stageName;
-    
-    // Close menu if open
-    closeMenu();
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 // =====================================================
@@ -330,9 +315,9 @@ function renderServices() {
     
     grid.innerHTML = SERVICES.map(service => `
         <div class="item-card" data-id="${service.id}" data-type="service">
-            <span class="item-icon">${service.icon || '📄'}</span>
+            <span class="item-icon">${service.icon}</span>
             <span class="item-title">${service.title}</span>
-            <span class="item-subtitle">${service.subtitle || ''}</span>
+            <span class="item-subtitle">${service.subtitle}</span>
         </div>
     `).join('');
 }
@@ -347,9 +332,9 @@ function renderWorks() {
     
     grid.innerHTML = WORKS.map(work => `
         <div class="item-card" data-id="${work.id}" data-type="work">
-            <span class="item-icon">${work.icon || '🎨'}</span>
+            <span class="item-icon">${work.icon}</span>
             <span class="item-title">${work.title}</span>
-            <span class="item-subtitle">${work.subtitle || ''}</span>
+            <span class="item-subtitle">${work.subtitle}</span>
         </div>
     `).join('');
 }
@@ -373,25 +358,24 @@ function openPanel(type, id) {
     if (!panelBody) return;
     
     if (type === 'service') {
-        const features = Array.isArray(data.features) ? data.features : [];
         panelBody.innerHTML = `
-            <div class="panel-icon">${data.icon || '📄'}</div>
+            <div class="panel-icon">${data.icon}</div>
             <h2 class="panel-title">${data.title}</h2>
-            <p class="panel-subtitle">${data.subtitle || ''}</p>
-            <p class="panel-desc">${data.description || ''}</p>
+            <p class="panel-subtitle">${data.subtitle}</p>
+            <p class="panel-desc">${data.description}</p>
             
             <ul class="panel-features">
-                ${features.map(f => `<li>${f}</li>`).join('')}
+                ${data.features.map(f => `<li>${f}</li>`).join('')}
             </ul>
             
             <div class="panel-meta">
                 <div class="meta-box">
                     <div class="meta-label">المدة</div>
-                    <div class="meta-value">${data.duration || '-'}</div>
+                    <div class="meta-value">${data.duration}</div>
                 </div>
                 <div class="meta-box">
                     <div class="meta-label">السعر</div>
-                    <div class="meta-value">${data.price || '-'}</div>
+                    <div class="meta-value">${data.price}</div>
                 </div>
             </div>
             
@@ -403,15 +387,14 @@ function openPanel(type, id) {
             </div>
         `;
     } else {
-        const tags = Array.isArray(data.tags) ? data.tags : [];
         panelBody.innerHTML = `
-            <div class="panel-icon">${data.icon || '🎨'}</div>
+            <div class="panel-icon">${data.icon}</div>
             <h2 class="panel-title">${data.title}</h2>
-            <p class="panel-subtitle">${data.subtitle || ''}</p>
-            <p class="panel-desc">${data.description || ''}</p>
+            <p class="panel-subtitle">${data.subtitle}</p>
+            <p class="panel-desc">${data.description}</p>
             
             <div class="panel-tags">
-                ${tags.map(t => `<span class="panel-tag">${t}</span>`).join('')}
+                ${data.tags.map(t => `<span class="panel-tag">${t}</span>`).join('')}
             </div>
             
             <div class="panel-actions">
@@ -455,13 +438,9 @@ function openMenu() {
 
 function closeMenu() {
     state.menuOpen = false;
-    const toggle = $('.menu-toggle');
-    const overlay = $('.menu-overlay');
-    const menu = $('.side-menu');
-    
-    if (toggle) toggle.classList.remove('is-active');
-    if (overlay) overlay.classList.remove('is-open');
-    if (menu) menu.classList.remove('is-open');
+    $('.menu-toggle').classList.remove('is-active');
+    $('.menu-overlay').classList.remove('is-open');
+    $('.side-menu').classList.remove('is-open');
     document.body.classList.remove('no-scroll');
 }
 
@@ -481,19 +460,15 @@ function handleContactSubmit(e) {
     e.preventDefault();
     
     const form = e.target;
-    const name = form.querySelector('#formName')?.value.trim() || form.querySelector('#contactName')?.value.trim();
-    const phone = form.querySelector('#formPhone')?.value.trim() || '';
-    const message = form.querySelector('#formMessage')?.value.trim() || form.querySelector('#contactMessage')?.value.trim();
+    const name = form.querySelector('#contactName').value.trim();
+    const message = form.querySelector('#contactMessage').value.trim();
     
     if (!name || !message) {
         alert('يرجى ملء جميع الحقول');
         return;
     }
     
-    let whatsappMessage = `مرحباً، أنا ${name}`;
-    if (phone) whatsappMessage += `\nرقمي: ${phone}`;
-    whatsappMessage += `\n\n${message}`;
-    
+    const whatsappMessage = `مرحباً، أنا ${name}\n\n${message}`;
     const whatsappURL = `https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodeURIComponent(whatsappMessage)}`;
     
     window.open(whatsappURL, '_blank');

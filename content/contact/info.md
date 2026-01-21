@@ -1,4 +1,5 @@
----
-whatsapp: "+966536090915"
-email: "raed@example.com"
+﻿---
+whatsapp: ""
+email: ""
+welcome_message: "هلا! اكتب رسالتك وسأتواصل معك."
 ---

@@ -1,36 +1,15 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+﻿<!doctype html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لوحة التحكم - رائد</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Content Manager</title>
 </head>
 <body>
+  <!-- هذا العنصر مهم جداً، بدونه يصير appendChild على null -->
   <div id="nc-root"></div>
+
+  <!-- Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  
-  <script>
-    if (window.location.hash) {
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      
-      if (params.get('invite_token') || params.get('confirmation_token') || params.get('recovery_token')) {
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.open();
-        }
-      }
-    }
-    
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>

@@ -1,56 +1,41 @@
-backend:
+﻿backend:
   name: git-gateway
   branch: main
-
-site_url: https://raedw.netlify.app
-display_url: https://raedw.netlify.app
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-collections:
-  # ==================== بيانات التواصل ====================
-  - name: "contact"
-    label: "💬 بيانات التواصل"
-    files:
-      - label: "معلومات التواصل"
-        name: "info"
-        file: "content/contact/info.md"
-        fields:
-          - { label: "رقم الواتساب", name: "whatsapp", widget: "string", default: "+966536090915" }
-          - { label: "البريد الإلكتروني", name: "email", widget: "string", default: "raed@example.com" }
+local_backend: false
 
-  # ==================== الخدمات ====================
+collections:
   - name: "services"
-    label: "🛒 الخدمات"
+    label: "الخدمات"
     folder: "content/services"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "العنوان", name: "title", widget: "string" }
-      - { label: "العنوان الفرعي", name: "subtitle", widget: "string", required: false }
-      - { label: "الأيقونة (إيموجي)", name: "icon", widget: "string", default: "📄" }
-      - { label: "الوصف", name: "description", widget: "text" }
-      - label: "المميزات"
-        name: "features"
-        widget: "list"
-        field: { label: "ميزة", name: "feature", widget: "string" }
-      - { label: "المدة", name: "duration", widget: "string" }
-      - { label: "السعر", name: "price", widget: "string" }
+      - { label: "وصف مختصر", name: "summary", widget: "string", required: false }
+      - { label: "الصورة", name: "image", widget: "image", required: false }
+      - { label: "الوصف", name: "body", widget: "markdown" }
 
-  # ==================== معرض الأعمال ====================
   - name: "projects"
-    label: "📁 معرض الأعمال"
+    label: "معرض الأعمال"
     folder: "content/projects"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "العنوان", name: "title", widget: "string" }
-      - { label: "العنوان الفرعي", name: "subtitle", widget: "string", required: false }
-      - { label: "الأيقونة (إيموجي)", name: "icon", widget: "string", default: "🎨" }
-      - { label: "الوصف", name: "description", widget: "text" }
       - { label: "الصورة", name: "image", widget: "image", required: false }
-      - label: "الوسوم"
-        name: "tags"
-        widget: "list"
-        field: { label: "وسم", name: "tag", widget: "string" }
+      - { label: "المحتوى", name: "body", widget: "markdown" }
+
+  - name: "contact"
+    label: "تواصل معي"
+    files:
+      - label: "بيانات التواصل"
+        name: "info"
+        file: "content/contact/info.md"
+        fields:
+          - { label: "واتساب", name: "whatsapp", widget: "string", required: false }
+          - { label: "الإيميل", name: "email", widget: "string", required: false }
+          - { label: "رسالة ترحيبية", name: "welcome_message", widget: "text", required: false }
