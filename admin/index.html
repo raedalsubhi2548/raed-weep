@@ -11,21 +11,17 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   
   <script>
-    // معالجة التوكنات من الرابط
     if (window.location.hash) {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       
-      // إذا فيه invite_token أو confirmation_token أو recovery_token
       if (params.get('invite_token') || params.get('confirmation_token') || params.get('recovery_token')) {
-        // افتح نافذة netlify identity للتعامل مع التوكن
         if (window.netlifyIdentity) {
           window.netlifyIdentity.open();
         }
       }
     }
     
-    // بعد تسجيل الدخول
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
         if (!user) {
