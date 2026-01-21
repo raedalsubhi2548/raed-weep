@@ -1,11 +1,12 @@
-﻿backend:
+backend:
   name: git-gateway
   branch: main
 
+site_url: https://raedw.netlify.app
+display_url: https://raedw.netlify.app
+
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
-
-local_backend: false
 
 collections:
   - name: "services"
