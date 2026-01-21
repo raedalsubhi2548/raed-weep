@@ -10,10 +10,9 @@ collections:
     label: "الخدمات"
     folder: "content/services"
     create: true
-    slug: "{{slug}}"
     fields:
-      - { label: "عنوان الخدمة", name: "title", widget: "string" }
-      - { label: "وصف مختصر", name: "summary", widget: "string" }
+      - { label: "العنوان", name: "title", widget: "string" }
+      - { label: "الوصف المختصر", name: "summary", widget: "string" }
       - { label: "الوصف", name: "body", widget: "markdown" }
       - { label: "الصورة", name: "image", widget: "image" }
 
@@ -21,19 +20,16 @@ collections:
     label: "معرض الأعمال"
     folder: "content/projects"
     create: true
-    slug: "{{slug}}"
     fields:
-      - { label: "اسم المشروع", name: "title", widget: "string" }
-      - { label: "الوصف", name: "body", widget: "markdown" }
+      - { label: "العنوان", name: "title", widget: "string" }
+      - { label: "المحتوى", name: "body", widget: "markdown" }
       - { label: "الصورة", name: "image", widget: "image" }
 
   - name: "contact"
-    label: "تواصل مع رائد"
-    files:
-      - file: "content/contact/info.md"
-        name: "contactinfo"
-        label: "معلومات التواصل"
-        fields:
-          - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
-          - { label: "الايميل", name: "email", widget: "string" }
-          - { label: "رسالة الترحيب", name: "welcome", widget: "text" }
+    label: "تواصل معي"
+    folder: "content/contact"
+    create: true
+    fields:
+      - { label: "رقم الواتساب", name: "whatsapp", widget: "string" }
+      - { label: "الإيميل", name: "email", widget: "string" }
+      - { label: "الرسالة الترحيبية", name: "message", widget: "markdown" }
