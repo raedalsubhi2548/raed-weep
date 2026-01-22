@@ -1298,65 +1298,380 @@ ul, ol {
 }
 
 /* =============================================
-   FLOATING LOGO
+   HEADER LOGO WITH SPACE EFFECTS
    ============================================= */
-.floating-logo{
-  position: fixed;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  width: 120px;
-  max-width: 42vw;
-  filter: drop-shadow(0 10px 25px rgba(0,0,0,.45));
-  opacity: .98;
-  animation: floaty 4.5s ease-in-out infinite;
+.header-logo {
+    position: fixed;
+    top: calc(var(--space-md) + var(--safe-top));
+    left: var(--space-md);
+    z-index: var(--z-menu);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.4s var(--ease);
 }
-.floating-logo img{
-  width: 100%;
-  height: auto;
-  display: block;
+
+.header-logo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 3;
+    filter: 
+        drop-shadow(0 0 8px rgba(108, 235, 255, 0.5))
+        drop-shadow(0 0 20px rgba(168, 139, 255, 0.3))
+        drop-shadow(0 0 40px rgba(108, 235, 255, 0.2));
+    animation: logoFloat 5s ease-in-out infinite, logoPulseGlow 3s ease-in-out infinite alternate;
 }
-@keyframes floaty {
-  0%   { transform: translateX(-50%) translateY(0); }
-  50%  { transform: translateX(-50%) translateY(6px); }
-  100% { transform: translateX(-50%) translateY(0); }
+
+/* Floating Animation */
+@keyframes logoFloat {
+    0%, 100% { 
+        transform: translateY(0) rotate(0deg); 
+    }
+    25% { 
+        transform: translateY(-4px) rotate(1deg); 
+    }
+    50% { 
+        transform: translateY(-2px) rotate(0deg); 
+    }
+    75% { 
+        transform: translateY(-5px) rotate(-1deg); 
+    }
 }
-@media (max-width: 480px){
-  .floating-logo{ width: 92px; top: 10px; }
+
+/* Pulsing Glow Effect */
+@keyframes logoPulseGlow {
+    0% {
+        filter: 
+            drop-shadow(0 0 8px rgba(108, 235, 255, 0.4))
+            drop-shadow(0 0 20px rgba(168, 139, 255, 0.2))
+            drop-shadow(0 0 40px rgba(108, 235, 255, 0.1));
+    }
+    100% {
+        filter: 
+            drop-shadow(0 0 12px rgba(108, 235, 255, 0.7))
+            drop-shadow(0 0 30px rgba(168, 139, 255, 0.4))
+            drop-shadow(0 0 50px rgba(108, 235, 255, 0.3));
+    }
+}
+
+/* Glow Rings Around Logo */
+.logo-glow-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(108, 235, 255, 0.3);
+    animation: ringPulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.logo-glow-ring.ring-2 {
+    width: 120%;
+    height: 120%;
+    border-color: rgba(168, 139, 255, 0.2);
+    animation-delay: -2s;
+}
+
+@keyframes ringPulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 0.5; 
+    }
+    50% { 
+        transform: scale(1.15); 
+        opacity: 0.2; 
+    }
+}
+
+/* Sparkle Particles */
+.logo-sparkles {
+    position: absolute;
+    inset: -15px;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkleAnim 3s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) {
+    top: 5%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.sparkle:nth-child(2) {
+    top: 15%;
+    right: 5%;
+    animation-delay: 0.6s;
+}
+
+.sparkle:nth-child(3) {
+    bottom: 10%;
+    left: 5%;
+    animation-delay: 1.2s;
+}
+
+.sparkle:nth-child(4) {
+    bottom: 5%;
+    right: 15%;
+    animation-delay: 1.8s;
+}
+
+.sparkle:nth-child(5) {
+    top: 50%;
+    right: 0;
+    animation-delay: 2.4s;
+}
+
+@keyframes sparkleAnim {
+    0%, 100% { 
+        opacity: 0; 
+        transform: scale(0.5); 
+        box-shadow: 0 0 0 rgba(108, 235, 255, 0);
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.2); 
+        box-shadow: 0 0 8px rgba(108, 235, 255, 0.8), 0 0 15px rgba(168, 139, 255, 0.5);
+    }
+}
+
+/* Hover Effects */
+.header-logo:hover img {
+    filter: 
+        drop-shadow(0 0 15px rgba(108, 235, 255, 0.9))
+        drop-shadow(0 0 35px rgba(168, 139, 255, 0.6))
+        drop-shadow(0 0 60px rgba(108, 235, 255, 0.4));
+    transform: scale(1.05);
+}
+
+.header-logo:hover .sparkle {
+    animation-duration: 1.5s;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .header-logo {
+        width: 60px;
+        height: 60px;
+        left: var(--space-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .header-logo {
+        width: 50px;
+        height: 50px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .logo-glow-ring.ring-2 {
+        display: none;
+    }
+    
+    .sparkle {
+        width: 3px;
+        height: 3px;
+    }
 }
 
 /* =============================================
-   PRIVACY PAGE IMPROVEMENTS
+   BACKGROUND FLOATING LOGO
+   ============================================= */
+.bg-logo-float {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    z-index: 2;
+    width: 55vw;
+    max-width: 500px;
+    pointer-events: none;
+    opacity: 0.08;
+    filter: blur(3px);
+    animation: bgLogoFloat 12s ease-in-out infinite;
+}
+
+.bg-logo-float img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 60px rgba(108, 235, 255, 0.15));
+}
+
+@keyframes bgLogoFloat {
+    0%, 100% { transform: translate(-50%, -55%) scale(1); opacity: 0.08; }
+    50% { transform: translate(-50%, -52%) scale(1.03); opacity: 0.1; }
+}
+
+@media (max-width: 768px) {
+    .bg-logo-float {
+        width: 70vw;
+        opacity: 0.05;
+        filter: blur(4px);
+    }
+}
+
+@media (max-width: 480px) {
+    .bg-logo-float {
+        width: 80vw;
+        opacity: 0.04;
+        filter: blur(5px);
+    }
+}
+
+/* =============================================
+   PRIVACY PAGE - ENHANCED STYLING
    ============================================= */
 .stage-privacy {
     overflow-y: auto;
     padding: var(--space-lg);
+    justify-content: flex-start;
+    padding-top: 100px;
 }
 
 .stage-privacy .stage-container {
-    max-width: 800px;
+    max-width: 720px;
+    width: 100%;
     margin: 0 auto;
 }
 
-.privacy-card {
+.stage-privacy .privacy-card {
     max-width: 100%;
-    max-height: none;
-    overflow-y: visible;
-    background: rgba(15, 15, 35, 0.95);
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px;
+    background: rgba(18, 18, 45, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: var(--radius-xl);
-    padding: var(--space-xl);
-    border: 1px solid rgba(108, 235, 255, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(108, 235, 255, 0.18);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(108, 235, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.stage-privacy .privacy-section {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stage-privacy .privacy-section:last-of-type {
+    margin-bottom: 20px;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.stage-privacy .privacy-section h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stage-privacy .privacy-section p {
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.85;
+    margin-bottom: 10px;
+}
+
+.stage-privacy .privacy-section ul {
+    padding-right: 20px;
+    margin-top: 10px;
+}
+
+.stage-privacy .privacy-section li {
+    position: relative;
+    padding-right: 18px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+}
+
+.stage-privacy .privacy-section li::before {
+    content: '✦';
+    position: absolute;
+    right: 0;
+    color: var(--cyan);
+    font-size: 0.7rem;
+    top: 4px;
+}
+
+.stage-privacy .privacy-footer {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stage-privacy .privacy-footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .stage-privacy {
+        padding: var(--space-md);
+        padding-top: 90px;
+    }
+    
+    .stage-privacy .stage-container {
+        width: 94%;
+    }
+    
+    .stage-privacy .privacy-card {
+        padding: 24px;
+        border-radius: var(--radius-lg);
+    }
 }
 
 @media (max-width: 480px) {
-    .privacy-card {
-        padding: var(--space-md);
-        border-radius: var(--radius-lg);
-    }
-    
     .stage-privacy {
         padding: var(--space-sm);
+        padding-top: 80px;
+    }
+    
+    .stage-privacy .stage-container {
+        width: 92%;
+    }
+    
+    .stage-privacy .privacy-card {
+        padding: 20px 16px;
+        border-radius: var(--radius-md);
+    }
+    
+    .stage-privacy .privacy-section {
+        margin-bottom: 22px;
+        padding-bottom: 16px;
+    }
+    
+    .stage-privacy .privacy-section h3 {
+        font-size: 1.05rem;
+    }
+    
+    .stage-privacy .privacy-section p,
+    .stage-privacy .privacy-section li {
+        font-size: 0.9rem;
     }
 }
