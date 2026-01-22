@@ -208,52 +208,6 @@ ul, ol {
 }
 
 /* =============================================
-   HEADER LOGO (TOP CENTER)
-   ============================================= */
-.header-logo-top {
-    position: fixed;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    width: 160px;
-    display: block;
-    pointer-events: auto;
-}
-
-.header-logo-top img {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: 
-        drop-shadow(0 0 10px rgba(108, 235, 255, 0.5))
-        drop-shadow(0 0 25px rgba(168, 139, 255, 0.3))
-        drop-shadow(0 0 40px rgba(108, 235, 255, 0.2));
-    animation: headerLogoGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes headerLogoGlow {
-    0% {
-        filter: 
-            drop-shadow(0 0 8px rgba(108, 235, 255, 0.4))
-            drop-shadow(0 0 20px rgba(168, 139, 255, 0.2));
-    }
-    100% {
-        filter: 
-            drop-shadow(0 0 15px rgba(108, 235, 255, 0.6))
-            drop-shadow(0 0 30px rgba(168, 139, 255, 0.4))
-            drop-shadow(0 0 45px rgba(108, 235, 255, 0.25));
-    }
-}
-
-@media (max-width: 480px) {
-    .header-logo-top {
-        width: 120px;
-        top: 10px;
-    }
-}
-
-/* =============================================
    MENU TOGGLE (TOP RIGHT - RTL)
    ============================================= */
 .menu-toggle {
@@ -1860,7 +1814,6 @@ ul, ol {
 .logo-3d-img,
 .logo-shine,
 .sparkle-3d,
-.header-logo-top img,
 .portal-glow {
     animation: none !important;
 }
