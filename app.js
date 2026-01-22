@@ -22,170 +22,115 @@ const CONFIG = {
 const SERVICES = [
     {
         id: 1,
-        title: 'صفحات هبوط',
-        subtitle: 'Landing Pages',
-        icon: '📄',
-        description: 'صفحات هبوط احترافية مصممة لتحويل الزوار إلى عملاء. تصميم جذاب وسرعة عالية.',
+        title: 'تصميم متجر في سلة',
+        subtitle: 'Salla Store',
+        icon: '🛒',
+        description: 'بناء متجر احترافي بالكامل مع هوية بصرية متناسقة وتجربة مستخدم سلسة.',
         features: [
-            'تصميم مخصص يعكس هوية علامتك',
-            'متجاوب مع جميع الأجهزة',
-            'سرعة تحميل عالية',
-            'تحسين لمحركات البحث SEO',
-            'ربط مع أدوات التحليل'
+            'تصميم واجهة احترافية',
+            'هوية بصرية متناسقة',
+            'تجربة مستخدم سلسة',
+            'صفحات المنتجات',
+            'جاهز للانطلاق'
         ],
-        duration: '3-5 أيام',
-        price: 'من 800 ريال'
+        duration: '5-10 أيام',
+        price: 'يبدأ من 250 ريال'
     },
     {
         id: 2,
-        title: 'تصميم متجر',
-        subtitle: 'E-Commerce Store',
-        icon: '🛒',
-        description: 'متجر إلكتروني متكامل بتجربة شراء سلسة من الواجهة حتى الدفع.',
+        title: 'ربط أدوات قوقل',
+        subtitle: 'Google Tools',
+        icon: '📊',
+        description: 'ربط Google Analytics – Google Tag Manager – Google Search Console',
         features: [
-            'واجهة رئيسية جذابة',
-            'صفحات منتجات احترافية',
-            'تجربة مستخدم ممتازة للجوال',
-            'صفحات السياسات جاهزة',
-            'تسليم جاهز للانطلاق'
+            'Google Analytics',
+            'Google Tag Manager',
+            'Google Search Console',
+            'إعداد التتبع الكامل',
+            'تقارير الأداء'
         ],
-        duration: '5-10 أيام',
-        price: 'من 1500 ريال'
+        duration: '1-2 يوم',
+        price: 'الأداة الواحدة بـ 75 ريال'
     },
     {
         id: 3,
-        title: 'خدمات قوقل',
-        subtitle: 'Google Services',
-        icon: '📍',
-        description: 'إعداد وتحسين حسابك على قوقل بزنس وتحسين ظهورك في نتائج البحث.',
+        title: 'ربط البكسل لمنصات التواصل',
+        subtitle: 'Social Pixels',
+        icon: '📱',
+        description: 'Meta Pixel – TikTok Pixel – Snapchat Pixel',
         features: [
-            'إعداد Google Business Profile',
-            'تحسين الظهور المحلي',
-            'إدارة التقييمات والردود',
-            'تحليلات وتقارير شهرية',
-            'صور ومعلومات محدثة'
+            'Meta Pixel (فيسبوك وإنستغرام)',
+            'TikTok Pixel',
+            'Snapchat Pixel',
+            'تتبع التحويلات',
+            'تحسين الحملات الإعلانية'
         ],
-        duration: '2-4 أيام',
-        price: 'من 500 ريال'
+        duration: '1-2 يوم',
+        price: 'المنصة الواحدة بـ 75 ريال'
     },
     {
         id: 4,
-        title: 'حملات إعلانية',
-        subtitle: 'Ad Campaigns',
-        icon: '📢',
-        description: 'حملات إعلانية مدروسة على جوجل وسناب وإنستغرام لجذب العملاء المناسبين.',
+        title: 'تحسين محركات البحث SEO',
+        subtitle: 'SEO Optimization',
+        icon: '🔍',
+        description: 'تحسين ظهور المتجر في نتائج البحث – بناء صفحات محسّنة – تحسين المنتجات',
         features: [
-            'دراسة الجمهور المستهدف',
-            'تصميم إعلانات جذابة',
-            'إدارة الميزانية بذكاء',
-            'تقارير أداء دورية',
-            'تحسين مستمر للنتائج'
+            'تحسين ظهور المتجر',
+            'بناء صفحات محسّنة',
+            'تحسين المنتجات',
+            'الكلمات المفتاحية',
+            'تقارير الأداء'
         ],
-        duration: 'مستمر',
-        price: 'من 1000 ريال/شهر'
+        duration: 'حسب المشروع',
+        price: 'طلب عرض سعر'
     },
     {
         id: 5,
-        title: 'تصميم هوية',
-        subtitle: 'Brand Identity',
-        icon: '🎨',
-        description: 'هوية بصرية متكاملة تعكس قيم علامتك وتميزك عن المنافسين.',
+        title: 'تصميم وإنشاء صفحات الهبوط',
+        subtitle: 'Landing Pages',
+        icon: '🚀',
+        description: 'صفحة هبوط احترافية متوافقة مع الهوية البصرية',
         features: [
-            'شعار احترافي',
-            'لوحة ألوان متناسقة',
-            'خطوط وأنماط مميزة',
-            'دليل الهوية البصرية',
-            'تطبيقات الهوية'
+            'تصميم احترافي',
+            'متوافقة مع الهوية البصرية',
+            'سرعة تحميل عالية',
+            'تحسين التحويلات',
+            'متجاوبة مع الجوال'
         ],
-        duration: '5-7 أيام',
-        price: 'من 1200 ريال'
+        duration: '3-5 أيام',
+        price: 'طلب عرض سعر'
     },
     {
         id: 6,
-        title: 'ربط واتساب',
-        subtitle: 'WhatsApp Integration',
-        icon: '💬',
-        description: 'ربط موقعك أو متجرك بالواتساب لتسهيل التواصل مع العملاء.',
+        title: 'تصميم وإنشاء مواقع إلكترونية',
+        subtitle: 'Websites',
+        icon: '🌐',
+        description: 'مواقع للشركات والمكاتب والمتاجر – تصميم + برمجة كاملة',
         features: [
-            'زر واتساب ثابت',
-            'رسائل ترحيب تلقائية',
-            'ربط مع نماذج الطلب',
-            'إشعارات الطلبات',
-            'دعم متعدد الأرقام'
+            'مواقع للشركات والمكاتب',
+            'تصميم احترافي',
+            'برمجة كاملة',
+            'لوحة تحكم',
+            'دعم فني'
         ],
-        duration: '1-2 يوم',
-        price: 'من 300 ريال'
+        duration: '10-15 يوم',
+        price: 'طلب عرض سعر'
     },
     {
         id: 7,
-        title: 'استشارات',
-        subtitle: 'Consulting',
-        icon: '💡',
-        description: 'جلسات استشارية لمساعدتك في بناء استراتيجية رقمية فعالة.',
+        title: 'إنشاء حملات إعلانية',
+        subtitle: 'Ad Campaigns',
+        icon: '📢',
+        description: 'حملات على سناب – تيك توك – إنستغرام مع تحسين الأداء',
         features: [
-            'تحليل الوضع الحالي',
-            'خطة عمل مفصلة',
-            'نصائح وتوجيهات عملية',
-            'متابعة وتقييم',
-            'دعم مستمر'
+            'حملات سناب شات',
+            'حملات تيك توك',
+            'حملات إنستغرام',
+            'تحسين الأداء',
+            'تقارير دورية'
         ],
-        duration: 'جلسة 60 دقيقة',
-        price: 'من 200 ريال'
-    }
-];
-
-// =====================================================
-// WORKS DATA
-// =====================================================
-
-const WORKS = [
-    {
-        id: 1,
-        title: 'متجر أزياء راقٍ',
-        subtitle: 'Fashion Store',
-        icon: '👗',
-        description: 'متجر أزياء نسائية بتصميم أنيق وتجربة تسوق سلسة.',
-        tags: ['تصميم متجر', 'Shopify', 'UI/UX']
-    },
-    {
-        id: 2,
-        title: 'صفحة هبوط منتج',
-        subtitle: 'Product Landing',
-        icon: '🚀',
-        description: 'صفحة هبوط لإطلاق منتج تقني مع رسوم متحركة جذابة.',
-        tags: ['صفحة هبوط', 'تحويلات', 'Motion']
-    },
-    {
-        id: 3,
-        title: 'حملة إعلانية',
-        subtitle: 'Ad Campaign',
-        icon: '📈',
-        description: 'حملة إعلانية متكاملة حققت زيادة 300% في المبيعات.',
-        tags: ['إعلانات', 'Google Ads', 'تحسين']
-    },
-    {
-        id: 4,
-        title: 'هوية لمطعم',
-        subtitle: 'Restaurant Brand',
-        icon: '🍽️',
-        description: 'هوية بصرية كاملة لمطعم راقٍ مع جميع التطبيقات.',
-        tags: ['هوية بصرية', 'شعار', 'تصميم']
-    },
-    {
-        id: 5,
-        title: 'موقع شركة',
-        subtitle: 'Corporate Site',
-        icon: '🏢',
-        description: 'موقع مؤسسي احترافي مع صفحات متعددة وبوابة خدمات.',
-        tags: ['موقع', 'WordPress', 'SEO']
-    },
-    {
-        id: 6,
-        title: 'متجر عطور',
-        subtitle: 'Perfume Store',
-        icon: '🌸',
-        description: 'متجر عطور فاخر بتصميم يعكس الأناقة والفخامة.',
-        tags: ['تصميم متجر', 'Salla', 'UI/UX']
+        duration: 'مستمر',
+        price: 'طلب عرض سعر'
     }
 ];
 
@@ -215,7 +160,6 @@ const $$ = (sel) => document.querySelectorAll(sel);
 function init() {
     generateStars();
     renderServices();
-    renderWorks();
     setupEventListeners();
     handleHashChange();
     
@@ -255,7 +199,7 @@ function handleHashChange() {
 
 function navigateToStage(stageName, updateHash = true) {
     // Valid stages
-    const validStages = ['intro', 'map', 'services', 'works', 'contact', 'privacy'];
+    const validStages = ['intro', 'map', 'services', 'contact', 'privacy'];
     
     if (!validStages.includes(stageName)) {
         stageName = 'intro';
@@ -323,88 +267,49 @@ function renderServices() {
 }
 
 // =====================================================
-// RENDER WORKS
-// =====================================================
-
-function renderWorks() {
-    const grid = $('#worksGrid');
-    if (!grid) return;
-    
-    grid.innerHTML = WORKS.map(work => `
-        <div class="item-card" data-id="${work.id}" data-type="work">
-            <span class="item-icon">${work.icon}</span>
-            <span class="item-title">${work.title}</span>
-            <span class="item-subtitle">${work.subtitle}</span>
-        </div>
-    `).join('');
-}
-
-// =====================================================
 // PANEL MANAGEMENT
 // =====================================================
 
 function openPanel(type, id) {
-    const data = type === 'service' 
-        ? SERVICES.find(s => s.id === id)
-        : WORKS.find(w => w.id === id);
+    const data = SERVICES.find(s => s.id === id);
     
     if (!data) return;
     
     state.panelOpen = true;
-    state.panelType = type;
+    state.panelType = 'service';
     state.panelData = data;
     
     const panelBody = $('#panelBody');
     if (!panelBody) return;
     
-    if (type === 'service') {
-        panelBody.innerHTML = `
-            <div class="panel-icon">${data.icon}</div>
-            <h2 class="panel-title">${data.title}</h2>
-            <p class="panel-subtitle">${data.subtitle}</p>
-            <p class="panel-desc">${data.description}</p>
-            
-            <ul class="panel-features">
-                ${data.features.map(f => `<li>${f}</li>`).join('')}
-            </ul>
-            
-            <div class="panel-meta">
-                <div class="meta-box">
-                    <div class="meta-label">المدة</div>
-                    <div class="meta-value">${data.duration}</div>
-                </div>
-                <div class="meta-box">
-                    <div class="meta-label">السعر</div>
-                    <div class="meta-value">${data.price}</div>
-                </div>
+    panelBody.innerHTML = `
+        <div class="panel-icon">${data.icon}</div>
+        <h2 class="panel-title">${data.title}</h2>
+        <p class="panel-subtitle">${data.subtitle}</p>
+        <p class="panel-desc">${data.description}</p>
+        
+        <ul class="panel-features">
+            ${data.features.map(f => `<li>${f}</li>`).join('')}
+        </ul>
+        
+        <div class="panel-meta">
+            <div class="meta-box">
+                <div class="meta-label">المدة</div>
+                <div class="meta-value">${data.duration}</div>
             </div>
-            
-            <div class="panel-actions">
-                <a href="https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodeURIComponent('مرحباً، أريد الاستفسار عن خدمة: ' + data.title)}" 
-                   class="btn-panel-primary" target="_blank">
-                    💬 اطلب الآن عبر واتساب
-                </a>
+            <div class="meta-box">
+                <div class="meta-label">السعر</div>
+                <div class="meta-value">${data.price}</div>
             </div>
-        `;
-    } else {
-        panelBody.innerHTML = `
-            <div class="panel-icon">${data.icon}</div>
-            <h2 class="panel-title">${data.title}</h2>
-            <p class="panel-subtitle">${data.subtitle}</p>
-            <p class="panel-desc">${data.description}</p>
-            
-            <div class="panel-tags">
-                ${data.tags.map(t => `<span class="panel-tag">${t}</span>`).join('')}
-            </div>
-            
-            <div class="panel-actions">
-                <a href="https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodeURIComponent('مرحباً، أريد مشروع مشابه لـ: ' + data.title)}" 
-                   class="btn-panel-primary" target="_blank">
-                    💬 أريد مشروع مشابه
-                </a>
-            </div>
-        `;
-    }
+        </div>
+        
+        <div class="panel-actions">
+            <a href="https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodeURIComponent('مرحباً، أريد الاستفسار عن خدمة: ' + data.title)}" 
+               class="btn-panel-primary" target="_blank">
+                💬 اطلب الآن عبر واتساب
+            </a>
+        </div>
+    `;
     
     $('.panel-overlay').classList.add('is-open');
     $('.details-panel').classList.add('is-open');
@@ -525,18 +430,6 @@ function setupEventListeners() {
             if (card) {
                 const id = parseInt(card.dataset.id);
                 openPanel('service', id);
-            }
-        });
-    }
-    
-    // Works cards
-    const worksGrid = $('#worksGrid');
-    if (worksGrid) {
-        worksGrid.addEventListener('click', (e) => {
-            const card = e.target.closest('.item-card');
-            if (card) {
-                const id = parseInt(card.dataset.id);
-                openPanel('work', id);
             }
         });
     }

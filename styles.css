@@ -211,7 +211,7 @@ ul, ol {
 .menu-toggle {
     position: fixed;
     top: calc(var(--space-md) + var(--safe-top));
-    left: var(--space-md);
+    right: var(--space-md);
     z-index: var(--z-menu);
     width: 48px;
     height: 48px;
@@ -1294,5 +1294,69 @@ ul, ol {
     
     .privacy-card {
         padding: var(--space-md);
+    }
+}
+
+/* =============================================
+   FLOATING LOGO
+   ============================================= */
+.floating-logo{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 120px;
+  max-width: 42vw;
+  filter: drop-shadow(0 10px 25px rgba(0,0,0,.45));
+  opacity: .98;
+  animation: floaty 4.5s ease-in-out infinite;
+}
+.floating-logo img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@keyframes floaty {
+  0%   { transform: translateX(-50%) translateY(0); }
+  50%  { transform: translateX(-50%) translateY(6px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+@media (max-width: 480px){
+  .floating-logo{ width: 92px; top: 10px; }
+}
+
+/* =============================================
+   PRIVACY PAGE IMPROVEMENTS
+   ============================================= */
+.stage-privacy {
+    overflow-y: auto;
+    padding: var(--space-lg);
+}
+
+.stage-privacy .stage-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.privacy-card {
+    max-width: 100%;
+    max-height: none;
+    overflow-y: visible;
+    background: rgba(15, 15, 35, 0.95);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    border: 1px solid rgba(108, 235, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 480px) {
+    .privacy-card {
+        padding: var(--space-md);
+        border-radius: var(--radius-lg);
+    }
+    
+    .stage-privacy {
+        padding: var(--space-sm);
     }
 }

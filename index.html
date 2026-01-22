@@ -14,6 +14,11 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+    <!-- ========== FLOATING LOGO ========== -->
+    <a class="floating-logo" href="/" aria-label="Home">
+      <img src="assets/uploads/logo.png" alt="سمحة" />
+    </a>
+
     <!-- سكربت للتعامل مع تسجيل الدخول -->
     <script>
       if (window.netlifyIdentity) {
@@ -53,7 +58,6 @@
             <li><a href="#intro" data-stage="intro">🏠 الرئيسية</a></li>
             <li><a href="#map" data-stage="map">🗺️ خريطة الموقع</a></li>
             <li><a href="#services" data-stage="services">🛒 الخدمات</a></li>
-            <li><a href="#works" data-stage="works">📁 معرض الأعمال</a></li>
             <li><a href="#contact" data-stage="contact">💬 تواصل</a></li>
             <li><a href="#privacy" data-stage="privacy">🔒 سياسة الخصوصية</a></li>
         </ul>
@@ -100,12 +104,6 @@
                         <p class="portal-sub">حلول متكاملة لنجاح مشروعك</p>
                     </button>
 
-                    <button class="map-portal portal-gold" data-target="works">
-                        <div class="portal-icon">📁</div>
-                        <h3 class="portal-title">بوابة معرض الأعمال</h3>
-                        <p class="portal-sub">نماذج من أعمالي السابقة</p>
-                    </button>
-
                     <button class="map-portal portal-green" data-target="contact">
                         <div class="portal-icon">💬</div>
                         <h3 class="portal-title">بوابة تواصل مع رائد</h3>
@@ -135,22 +133,6 @@
                     <h2 class="stage-title">الخدمات الرقمية</h2>
                 </div>
                 <div class="cards-grid" id="servicesGrid"></div>
-            </div>
-        </section>
-
-        <!-- ===== STAGE: WORKS ===== -->
-        <section class="stage stage-works" id="stageWorks" data-stage="works">
-            <div class="stage-container">
-                <div class="stage-header">
-                    <button class="btn-back" data-back="map">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 12H5M12 19l-7-7 7-7"/>
-                        </svg>
-                        <span>رجوع</span>
-                    </button>
-                    <h2 class="stage-title title-gold">معرض الأعمال</h2>
-                </div>
-                <div class="cards-grid" id="worksGrid"></div>
             </div>
         </section>
 

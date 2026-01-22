@@ -1,0 +1,2 @@
+Download the logo from: https://f.top4top.io/p_3673r6nw21.png
+Save it as: logo.png in this folder (assets/uploads/)
