@@ -453,7 +453,8 @@ function setupEventListeners() {
     // Back buttons
     $$('.btn-back').forEach(btn => {
         btn.addEventListener('click', () => {
-            navigateToStage('map');
+            const backTarget = btn.dataset.back || 'map';
+            navigateToStage(backTarget);
         });
     });
     

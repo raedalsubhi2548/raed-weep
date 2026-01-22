@@ -1298,194 +1298,317 @@ ul, ol {
 }
 
 /* =============================================
-   HEADER LOGO WITH SPACE EFFECTS
+   3D SPACE LOGO - CENTERED ABOVE INTRO
    ============================================= */
-.header-logo {
-    position: fixed;
-    top: calc(var(--space-md) + var(--safe-top));
-    left: var(--space-md);
-    z-index: var(--z-menu);
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: transparent;
-    transition: all 0.4s var(--ease);
+.space-logo-3d {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 0 auto 10px auto;
+    perspective: 1000px;
+    z-index: 10;
 }
 
-.header-logo img {
+/* Parallax Depth Layers */
+.logo-depth-layer {
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.logo-depth-layer.layer-1 {
+    background: radial-gradient(circle, rgba(108, 235, 255, 0.15) 0%, transparent 70%);
+    animation: depthPulse1 6s ease-in-out infinite;
+    filter: blur(20px);
+}
+
+.logo-depth-layer.layer-2 {
+    inset: -40px;
+    background: radial-gradient(circle, rgba(168, 139, 255, 0.1) 0%, transparent 60%);
+    animation: depthPulse2 8s ease-in-out infinite;
+    filter: blur(30px);
+}
+
+.logo-depth-layer.layer-3 {
+    inset: -60px;
+    background: radial-gradient(circle, rgba(108, 235, 255, 0.05) 0%, transparent 50%);
+    animation: depthPulse3 10s ease-in-out infinite;
+    filter: blur(40px);
+}
+
+@keyframes depthPulse1 {
+    0%, 100% { transform: scale(1) translateZ(0); opacity: 0.8; }
+    50% { transform: scale(1.1) translateZ(20px); opacity: 1; }
+}
+
+@keyframes depthPulse2 {
+    0%, 100% { transform: scale(1) translateZ(0); opacity: 0.6; }
+    50% { transform: scale(1.15) translateZ(30px); opacity: 0.8; }
+}
+
+@keyframes depthPulse3 {
+    0%, 100% { transform: scale(1) translateZ(0); opacity: 0.4; }
+    50% { transform: scale(1.2) translateZ(40px); opacity: 0.6; }
+}
+
+/* Main Logo Container with 3D Transform */
+.logo-container-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: logo3DFloat 8s ease-in-out infinite, logo3DRotate 20s linear infinite;
+}
+
+@keyframes logo3DFloat {
+    0%, 100% { 
+        transform: translateY(0) translateZ(0) rotateX(0deg);
+    }
+    25% { 
+        transform: translateY(-8px) translateZ(15px) rotateX(2deg);
+    }
+    50% { 
+        transform: translateY(-4px) translateZ(25px) rotateX(0deg);
+    }
+    75% { 
+        transform: translateY(-10px) translateZ(10px) rotateX(-2deg);
+    }
+}
+
+@keyframes logo3DRotate {
+    0% { 
+        transform: rotateY(0deg) translateY(0);
+    }
+    25% { 
+        transform: rotateY(5deg) translateY(-6px);
+    }
+    50% { 
+        transform: rotateY(0deg) translateY(-3px);
+    }
+    75% { 
+        transform: rotateY(-5deg) translateY(-8px);
+    }
+    100% { 
+        transform: rotateY(0deg) translateY(0);
+    }
+}
+
+/* Inner Glow Effect */
+.logo-inner-glow {
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(108, 235, 255, 0.4) 0%, transparent 70%);
+    filter: blur(15px);
+    animation: innerGlowPulse 3s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes innerGlowPulse {
+    0% { opacity: 0.5; transform: scale(0.9); }
+    100% { opacity: 0.9; transform: scale(1.1); }
+}
+
+/* Outer Glow Effect */
+.logo-outer-glow {
+    position: absolute;
+    inset: -30%;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(168, 139, 255, 0.3) 0%, 
+        rgba(108, 235, 255, 0.15) 40%, 
+        transparent 70%);
+    filter: blur(25px);
+    animation: outerGlowPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes outerGlowPulse {
+    0% { opacity: 0.6; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.15); }
+}
+
+/* The Logo Image */
+.logo-3d-img {
     width: 100%;
     height: auto;
     display: block;
     position: relative;
-    z-index: 3;
+    z-index: 5;
     filter: 
-        drop-shadow(0 0 8px rgba(108, 235, 255, 0.5))
-        drop-shadow(0 0 20px rgba(168, 139, 255, 0.3))
-        drop-shadow(0 0 40px rgba(108, 235, 255, 0.2));
-    animation: logoFloat 5s ease-in-out infinite, logoPulseGlow 3s ease-in-out infinite alternate;
+        drop-shadow(0 0 10px rgba(108, 235, 255, 0.6))
+        drop-shadow(0 0 25px rgba(168, 139, 255, 0.4))
+        drop-shadow(0 0 50px rgba(108, 235, 255, 0.3))
+        drop-shadow(0 0 80px rgba(168, 139, 255, 0.2));
+    animation: logoPulse3D 4s ease-in-out infinite alternate;
 }
 
-/* Floating Animation */
-@keyframes logoFloat {
-    0%, 100% { 
-        transform: translateY(0) rotate(0deg); 
-    }
-    25% { 
-        transform: translateY(-4px) rotate(1deg); 
-    }
-    50% { 
-        transform: translateY(-2px) rotate(0deg); 
-    }
-    75% { 
-        transform: translateY(-5px) rotate(-1deg); 
-    }
-}
-
-/* Pulsing Glow Effect */
-@keyframes logoPulseGlow {
+@keyframes logoPulse3D {
     0% {
         filter: 
-            drop-shadow(0 0 8px rgba(108, 235, 255, 0.4))
-            drop-shadow(0 0 20px rgba(168, 139, 255, 0.2))
-            drop-shadow(0 0 40px rgba(108, 235, 255, 0.1));
+            drop-shadow(0 0 10px rgba(108, 235, 255, 0.5))
+            drop-shadow(0 0 25px rgba(168, 139, 255, 0.3))
+            drop-shadow(0 0 50px rgba(108, 235, 255, 0.2))
+            drop-shadow(0 0 80px rgba(168, 139, 255, 0.1));
     }
     100% {
         filter: 
-            drop-shadow(0 0 12px rgba(108, 235, 255, 0.7))
-            drop-shadow(0 0 30px rgba(168, 139, 255, 0.4))
-            drop-shadow(0 0 50px rgba(108, 235, 255, 0.3));
+            drop-shadow(0 0 15px rgba(108, 235, 255, 0.8))
+            drop-shadow(0 0 35px rgba(168, 139, 255, 0.5))
+            drop-shadow(0 0 60px rgba(108, 235, 255, 0.4))
+            drop-shadow(0 0 100px rgba(168, 139, 255, 0.3));
     }
 }
 
-/* Glow Rings Around Logo */
-.logo-glow-ring {
+/* Shine/Reflection Effect */
+.logo-shine {
     position: absolute;
-    width: 100%;
+    top: 0;
+    left: -100%;
+    width: 50%;
     height: 100%;
-    border-radius: 50%;
-    border: 1px solid rgba(108, 235, 255, 0.3);
-    animation: ringPulse 4s ease-in-out infinite;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 45%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.1) 55%,
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    animation: shineMove 6s ease-in-out infinite;
     pointer-events: none;
+    z-index: 10;
 }
 
-.logo-glow-ring.ring-2 {
-    width: 120%;
-    height: 120%;
-    border-color: rgba(168, 139, 255, 0.2);
-    animation-delay: -2s;
+@keyframes shineMove {
+    0%, 100% { left: -100%; opacity: 0; }
+    10% { opacity: 1; }
+    50% { left: 150%; opacity: 1; }
+    60%, 100% { opacity: 0; }
 }
 
-@keyframes ringPulse {
-    0%, 100% { 
-        transform: scale(1); 
-        opacity: 0.5; 
-    }
-    50% { 
-        transform: scale(1.15); 
-        opacity: 0.2; 
-    }
-}
-
-/* Sparkle Particles */
-.logo-sparkles {
+/* 3D Sparkles */
+.logo-sparkles-3d {
     position: absolute;
-    inset: -15px;
+    inset: -30px;
     pointer-events: none;
+    transform-style: preserve-3d;
 }
 
-.sparkle {
+.sparkle-3d {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     background: white;
     border-radius: 50%;
     opacity: 0;
-    animation: sparkleAnim 3s ease-in-out infinite;
+    animation: sparkle3DAnim 4s ease-in-out infinite;
 }
 
-.sparkle:nth-child(1) {
-    top: 5%;
-    left: 10%;
+.sparkle-3d:nth-child(1) {
+    top: 10%;
+    left: 5%;
     animation-delay: 0s;
 }
 
-.sparkle:nth-child(2) {
-    top: 15%;
-    right: 5%;
-    animation-delay: 0.6s;
+.sparkle-3d:nth-child(2) {
+    top: 5%;
+    right: 10%;
+    animation-delay: 0.7s;
 }
 
-.sparkle:nth-child(3) {
-    bottom: 10%;
-    left: 5%;
-    animation-delay: 1.2s;
+.sparkle-3d:nth-child(3) {
+    bottom: 15%;
+    left: 0;
+    animation-delay: 1.4s;
 }
 
-.sparkle:nth-child(4) {
+.sparkle-3d:nth-child(4) {
     bottom: 5%;
-    right: 15%;
-    animation-delay: 1.8s;
+    right: 5%;
+    animation-delay: 2.1s;
 }
 
-.sparkle:nth-child(5) {
+.sparkle-3d:nth-child(5) {
     top: 50%;
-    right: 0;
-    animation-delay: 2.4s;
+    left: -5%;
+    animation-delay: 2.8s;
 }
 
-@keyframes sparkleAnim {
+.sparkle-3d:nth-child(6) {
+    top: 40%;
+    right: -5%;
+    animation-delay: 3.5s;
+}
+
+@keyframes sparkle3DAnim {
     0%, 100% { 
         opacity: 0; 
-        transform: scale(0.5); 
+        transform: scale(0.3) translateZ(0);
         box-shadow: 0 0 0 rgba(108, 235, 255, 0);
     }
     50% { 
         opacity: 1; 
-        transform: scale(1.2); 
-        box-shadow: 0 0 8px rgba(108, 235, 255, 0.8), 0 0 15px rgba(168, 139, 255, 0.5);
+        transform: scale(1.5) translateZ(30px);
+        box-shadow: 
+            0 0 10px rgba(108, 235, 255, 1),
+            0 0 20px rgba(168, 139, 255, 0.7),
+            0 0 30px rgba(108, 235, 255, 0.5);
     }
 }
 
-/* Hover Effects */
-.header-logo:hover img {
-    filter: 
-        drop-shadow(0 0 15px rgba(108, 235, 255, 0.9))
-        drop-shadow(0 0 35px rgba(168, 139, 255, 0.6))
-        drop-shadow(0 0 60px rgba(108, 235, 255, 0.4));
-    transform: scale(1.05);
+/* Hover Effect for Logo */
+.space-logo-3d:hover .logo-container-3d {
+    animation-play-state: paused;
+    transform: scale(1.08) rotateY(10deg) translateZ(30px);
 }
 
-.header-logo:hover .sparkle {
-    animation-duration: 1.5s;
+.space-logo-3d:hover .logo-3d-img {
+    filter: 
+        drop-shadow(0 0 20px rgba(108, 235, 255, 1))
+        drop-shadow(0 0 40px rgba(168, 139, 255, 0.7))
+        drop-shadow(0 0 70px rgba(108, 235, 255, 0.5))
+        drop-shadow(0 0 100px rgba(168, 139, 255, 0.4));
+}
+
+.space-logo-3d:hover .sparkle-3d {
+    animation-duration: 2s;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-    .header-logo {
-        width: 60px;
-        height: 60px;
-        left: var(--space-sm);
+    .space-logo-3d {
+        width: 320px;
+        height: 320px;
+        margin-bottom: 10px;
+    }
+    
+    .logo-depth-layer.layer-3 {
+        display: none;
     }
 }
 
 @media (max-width: 480px) {
-    .header-logo {
-        width: 50px;
-        height: 50px;
-        top: 10px;
-        left: 10px;
+    .space-logo-3d {
+        width: 260px;
+        height: 260px;
+        margin-bottom: 5px;
     }
     
-    .logo-glow-ring.ring-2 {
+    .logo-depth-layer.layer-2,
+    .logo-depth-layer.layer-3 {
         display: none;
     }
     
-    .sparkle {
-        width: 3px;
-        height: 3px;
+    .logo-outer-glow {
+        inset: -20%;
+    }
+    
+    .sparkle-3d {
+        width: 4px;
+        height: 4px;
     }
 }
 
