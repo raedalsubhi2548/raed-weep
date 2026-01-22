@@ -1846,3 +1846,45 @@ ul, ol {
         font-size: 0.9rem;
     }
 }
+
+/* =============================================
+   STATIC MODE - LOGO & CARD ONLY (NO ANIMATION)
+   Background elements (stars, nebula, orbs) keep animating
+   ============================================= */
+
+/* Keep logo and card elements static */
+.logo-depth-layer,
+.logo-container-3d,
+.logo-inner-glow,
+.logo-outer-glow,
+.logo-3d-img,
+.logo-shine,
+.sparkle-3d,
+.header-logo-top img,
+.portal-glow {
+    animation: none !important;
+}
+
+.logo-shine {
+    display: none;
+}
+
+.sparkle-3d {
+    display: none;
+}
+
+.logo-container-3d {
+    transform: none;
+}
+
+.logo-inner-glow {
+    opacity: 0.7;
+}
+
+.logo-outer-glow {
+    opacity: 0.8;
+}
+
+.portal-glow {
+    opacity: 0.5;
+}
