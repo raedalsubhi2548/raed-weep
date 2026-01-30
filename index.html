@@ -6,9 +6,17 @@
     <meta name="description" content="رائد - حلول رقمية متكاملة لتطوير حضورك وزيادة مبيعاتك">
     <title>رائد | Raed - حلول رقمية</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="auth.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- Netlify Identity Widget - للوحة التحكم -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -47,6 +55,63 @@
         <span></span>
     </button>
 
+    <!-- ========== USER MENU (TOP LEFT) ========== -->
+    <div id="userMenu" class="user-menu" style="display: none;">
+        <button id="userMenuBtn" class="user-menu-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <div id="userDropdown" class="user-dropdown">
+            <div class="user-info">
+                <span id="userName">مرحباً</span>
+                <span id="userEmail" class="user-email"></span>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="#" id="myInfoBtn" class="dropdown-item">
+                <i class="fas fa-user"></i>
+                معلوماتي
+            </a>
+            <a href="#" id="myOrdersBtn" class="dropdown-item">
+                <i class="fas fa-shopping-bag"></i>
+                طلباتي
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" id="logoutBtn" class="dropdown-item logout">
+                <i class="fas fa-sign-out-alt"></i>
+                تسجيل الخروج
+            </a>
+        </div>
+    </div>
+
+    <!-- ========== FLOATING CART BUTTON ========== -->
+    <div id="floatingCart" class="floating-cart">
+        <button id="floatingCartBtn" class="floating-cart-btn" aria-label="سلة المشتريات">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="floatingCartCount" class="cart-count">0</span>
+        </button>
+    </div>
+
+    <!-- ========== CART DRAWER ========== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3>🛒 سلة المشتريات</h3>
+            <button id="closeCartDrawer" class="close-cart">&times;</button>
+        </div>
+        <div id="cartItems" class="cart-items">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-cart"></i>
+                <p>السلة فارغة</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-total">
+                <span>المجموع:</span>
+                <span id="cartTotal">0 ريال</span>
+            </div>
+            <button id="checkoutBtn" class="checkout-btn">إتمام الطلب</button>
+        </div>
+    </aside>
+
     <!-- ========== SIDE MENU (FROM RIGHT) ========== -->
     <div class="menu-overlay" id="menuOverlay"></div>
     <nav class="side-menu" id="sideMenu">
@@ -60,6 +125,10 @@
             <li><a href="#services" data-stage="services">🛒 الخدمات</a></li>
             <li><a href="#contact" data-stage="contact">💬 تواصل</a></li>
             <li><a href="#privacy" data-stage="privacy">🔒 سياسة الخصوصية</a></li>
+            <li><a href="#" id="loginBtn" class="mobile-menu-item">
+                <i class="fas fa-sign-in-alt"></i>
+                تسجيل الدخول
+            </a></li>
         </ul>
     </nav>
 
@@ -264,6 +333,62 @@
         <div class="transition-ring"></div>
     </div>
 
+    <!-- ========== AUTH MODAL (EmailJS OTP) ========== -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-modal-content">
+            <button class="close-auth-modal">&times;</button>
+            
+            <!-- Step 1: Email Input -->
+            <div id="emailStep" class="auth-step active">
+                <div class="auth-icon">📧</div>
+                <h2>تسجيل الدخول</h2>
+                <p>أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق</p>
+                <div class="input-group">
+                    <input type="email" id="loginEmail" placeholder="example@email.com" dir="ltr" autocomplete="email">
+                </div>
+                <button id="sendOtpBtn" class="auth-btn">إرسال رمز التحقق</button>
+            </div>
+            
+            <!-- Step 2: OTP Input -->
+            <div id="otpStep" class="auth-step">
+                <div class="auth-icon">🔐</div>
+                <h2>أدخل رمز التحقق</h2>
+                <p>أرسلنا رمز مكون من 6 أرقام إلى بريدك</p>
+                <div class="input-group">
+                    <input type="text" id="otpInput" placeholder="000000" maxlength="6" dir="ltr" inputmode="numeric" class="otp-input">
+                </div>
+                <button id="verifyOtpBtn" class="auth-btn">تحقق</button>
+                <button id="resendOtpBtn" class="auth-btn-secondary">إعادة إرسال الرمز</button>
+                <button class="auth-btn-link" onclick="showStep('emailStep')">
+                    <i class="fas fa-arrow-right"></i> تغيير البريد الإلكتروني
+                </button>
+            </div>
+            
+            <!-- Step 3: Profile Completion (New Users) -->
+            <div id="profileStep" class="auth-step">
+                <div class="auth-icon">👤</div>
+                <h2>أكمل بياناتك</h2>
+                <p>مرة واحدة فقط للتسجيل</p>
+                <div class="input-group">
+                    <input type="text" id="firstName" placeholder="الاسم الأول">
+                </div>
+                <div class="input-group">
+                    <input type="text" id="lastName" placeholder="الاسم الأخير">
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phoneNumber" placeholder="05xxxxxxxx" dir="ltr" inputmode="numeric">
+                </div>
+                <button id="saveProfileBtn" class="auth-btn">حفظ والمتابعة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== TOAST CONTAINER ========== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- App Scripts -->
+    <script src="cart.js"></script>
+    <script src="auth.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

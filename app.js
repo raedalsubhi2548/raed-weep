@@ -282,6 +282,10 @@ function openPanel(type, id) {
     const panelBody = $('#panelBody');
     if (!panelBody) return;
     
+    // Check if item is already in cart
+    const cart = window.Cart ? Cart.getCart() : [];
+    const isInCart = cart.some(item => item.serviceId === data.id);
+    
     panelBody.innerHTML = `
         <div class="panel-icon">${data.icon}</div>
         <h2 class="panel-title">${data.title}</h2>
@@ -304,9 +308,24 @@ function openPanel(type, id) {
         </div>
         
         <div class="panel-actions">
+            <button class="btn-add-to-cart ${isInCart ? 'in-cart' : ''}" 
+                    data-service-id="${data.id}"
+                    data-service-name="${data.title}"
+                    data-service-price="${extractPrice(data.price)}"
+                    data-service-icon="${data.icon}"
+                    ${isInCart ? 'disabled' : ''}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                </svg>
+                <span>${isInCart ? 'في السلة' : 'أضف للسلة'}</span>
+            </button>
             <a href="https://wa.me/${CONFIG.whatsapp.replace('+', '')}?text=${encodeURIComponent('مرحباً، أريد الاستفسار عن خدمة: ' + data.title)}" 
-               class="btn-panel-primary" target="_blank">
-                💬 اطلب الآن عبر واتساب
+               class="btn-panel-secondary" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                </svg>
+                <span>استفسار</span>
             </a>
         </div>
     `;
@@ -314,6 +333,14 @@ function openPanel(type, id) {
     $('.panel-overlay').classList.add('is-open');
     $('.details-panel').classList.add('is-open');
     document.body.classList.add('no-scroll');
+}
+
+/**
+ * Extract numeric price from price string
+ */
+function extractPrice(priceStr) {
+    const match = priceStr.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 0;
 }
 
 function closePanel() {
@@ -465,6 +492,30 @@ function setupEventListeners() {
             navigateToStage('map');
         });
     }
+    
+    // Add to cart button (delegated to document for dynamic content)
+    document.addEventListener('click', (e) => {
+        const addBtn = e.target.closest('.btn-add-to-cart');
+        if (addBtn && !addBtn.disabled && window.Cart) {
+            const serviceId = parseInt(addBtn.dataset.serviceId);
+            const serviceName = addBtn.dataset.serviceName;
+            const servicePrice = parseFloat(addBtn.dataset.servicePrice);
+            const serviceIcon = addBtn.dataset.serviceIcon;
+            
+            Cart.addToCart({
+                serviceId,
+                serviceName,
+                servicePrice,
+                serviceIcon,
+                quantity: 1
+            });
+            
+            // Update button state
+            addBtn.classList.add('in-cart');
+            addBtn.disabled = true;
+            addBtn.querySelector('span').textContent = 'في السلة';
+        }
+    });
     
     // Escape key to close panel/menu
     document.addEventListener('keydown', (e) => {

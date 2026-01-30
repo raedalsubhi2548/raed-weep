@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="رائد - إتمام الطلب والدفع">
+    <title>إتمام الطلب | رائد</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="auth.css">
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== GALAXY BACKGROUND ========== -->
+    <div class="galaxy-bg" aria-hidden="true">
+        <div class="stars" id="stars"></div>
+        <div class="nebula nebula-1"></div>
+        <div class="nebula nebula-2"></div>
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
+
+    <!-- ========== CHECKOUT HEADER ========== -->
+    <header class="checkout-header">
+        <a href="index.html" class="back-to-home">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>العودة للمتجر</span>
+        </a>
+        <div class="checkout-logo">
+            <span>رائد | Raed</span>
+        </div>
+        <div class="checkout-secure">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>دفع آمن</span>
+        </div>
+    </header>
+
+    <!-- ========== CHECKOUT MAIN ========== -->
+    <main class="checkout-main">
+        <div class="checkout-container">
+            
+            <!-- ========== CHECKOUT STEPS ========== -->
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <span>مراجعة السلة</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <span>معلومات الطلب</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <span>الدفع</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <span>التأكيد</span>
+                </div>
+            </div>
+
+            <div class="checkout-content">
+                
+                <!-- ========== STEP 1: CART REVIEW ========== -->
+                <section class="checkout-step-content active" id="step1Content">
+                    <h2 class="step-title">🛒 مراجعة السلة</h2>
+                    <p class="step-subtitle">تأكد من الخدمات المطلوبة قبل المتابعة</p>
+                    
+                    <div class="checkout-cart" id="checkoutCartItems">
+                        <!-- Cart items will be rendered here -->
+                    </div>
+                    
+                    <div class="checkout-summary-box">
+                        <div class="summary-line">
+                            <span>المجموع الفرعي</span>
+                            <span id="checkoutSubtotal">0 ريال</span>
+                        </div>
+                        <div class="summary-line total">
+                            <span>الإجمالي</span>
+                            <span id="checkoutTotal">0 ريال</span>
+                        </div>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <a href="index.html#services" class="btn-secondary">تعديل السلة</a>
+                        <button class="btn-primary-checkout" onclick="goToStep(2)">
+                            متابعة
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ========== STEP 2: ORDER DETAILS ========== -->
+                <section class="checkout-step-content" id="step2Content">
+                    <h2 class="step-title">📝 معلومات الطلب</h2>
+                    <p class="step-subtitle">أضف أي ملاحظات أو متطلبات خاصة بطلبك</p>
+                    
+                    <div class="user-info-card" id="userInfoCard">
+                        <!-- User info will be rendered here -->
+                    </div>
+                    
+                    <form id="orderDetailsForm" class="order-form">
+                        <div class="form-group">
+                            <label for="orderNotes">ملاحظات على الطلب (اختياري)</label>
+                            <textarea id="orderNotes" rows="4" placeholder="أي متطلبات خاصة أو تفاصيل إضافية عن الخدمات المطلوبة..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>طريقة التواصل المفضلة</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="contactMethod" value="whatsapp" checked>
+                                    <span class="radio-custom"></span>
+                                    <span>واتساب</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="contactMethod" value="email">
+                                    <span class="radio-custom"></span>
+                                    <span>البريد الإلكتروني</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="contactMethod" value="phone">
+                                    <span class="radio-custom"></span>
+                                    <span>اتصال هاتفي</span>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="step-actions">
+                        <button class="btn-secondary" onclick="goToStep(1)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            رجوع
+                        </button>
+                        <button class="btn-primary-checkout" onclick="goToStep(3)">
+                            متابعة للدفع
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ========== STEP 3: PAYMENT ========== -->
+                <section class="checkout-step-content" id="step3Content">
+                    <h2 class="step-title">💳 طريقة الدفع</h2>
+                    <p class="step-subtitle">اختر طريقة الدفع المناسبة لك</p>
+                    
+                    <div class="payment-methods">
+                        <label class="payment-method selected" data-method="bank">
+                            <input type="radio" name="paymentMethod" value="bank" checked>
+                            <div class="payment-icon">🏦</div>
+                            <div class="payment-info">
+                                <h4>تحويل بنكي</h4>
+                                <p>سيتم إرسال بيانات الحساب البنكي</p>
+                            </div>
+                            <div class="payment-check">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </label>
+                        
+                        <label class="payment-method" data-method="online">
+                            <input type="radio" name="paymentMethod" value="online">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-info">
+                                <h4>دفع إلكتروني</h4>
+                                <p>بطاقة ائتمانية أو Apple Pay</p>
+                                <span class="coming-soon">قريباً</span>
+                            </div>
+                            <div class="payment-check">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Bank Details (shown when bank transfer is selected) -->
+                    <div class="bank-details" id="bankDetails">
+                        <h4>🏦 بيانات التحويل البنكي</h4>
+                        <div class="bank-info">
+                            <div class="bank-row">
+                                <span>البنك:</span>
+                                <strong>مصرف الراجحي</strong>
+                            </div>
+                            <div class="bank-row">
+                                <span>اسم الحساب:</span>
+                                <strong>رائد للخدمات الرقمية</strong>
+                            </div>
+                            <div class="bank-row">
+                                <span>رقم الحساب:</span>
+                                <strong class="copy-text" onclick="copyToClipboard('123456789012')">
+                                    123456789012
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </strong>
+                            </div>
+                            <div class="bank-row">
+                                <span>الآيبان:</span>
+                                <strong class="copy-text" onclick="copyToClipboard('SA0380000000123456789012')">
+                                    SA0380000000123456789012
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </strong>
+                            </div>
+                        </div>
+                        <p class="bank-note">⚠️ يرجى إرسال صورة إيصال التحويل عبر الواتساب بعد إتمام الطلب</p>
+                    </div>
+                    
+                    <div class="order-total-final">
+                        <span>المبلغ المطلوب:</span>
+                        <span class="total-amount" id="finalTotal">0 ريال</span>
+                    </div>
+                    
+                    <div class="step-actions">
+                        <button class="btn-secondary" onclick="goToStep(2)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                            رجوع
+                        </button>
+                        <button class="btn-primary-checkout btn-confirm" onclick="confirmOrder()">
+                            تأكيد الطلب ✓
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ========== STEP 4: CONFIRMATION ========== -->
+                <section class="checkout-step-content" id="step4Content">
+                    <div class="confirmation-box">
+                        <div class="confirmation-icon">🎉</div>
+                        <h2>تم تأكيد طلبك بنجاح!</h2>
+                        <p>شكراً لثقتك بنا. سنتواصل معك قريباً لبدء العمل على طلبك.</p>
+                        
+                        <div class="order-confirmation-details" id="orderConfirmationDetails">
+                            <!-- Order details will be rendered here -->
+                        </div>
+                        
+                        <div class="confirmation-actions">
+                            <a href="https://wa.me/966536090915?text=مرحباً، قمت بإتمام طلب جديد ورقم الطلب هو: " id="whatsappOrderLink" target="_blank" class="btn-whatsapp-confirm">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                إرسال إيصال التحويل عبر واتساب
+                            </a>
+                            <a href="dashboard.html#orders" class="btn-view-orders">
+                                عرض طلباتي
+                            </a>
+                            <a href="index.html" class="btn-continue-shopping">
+                                العودة للمتجر
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="cart.js"></script>
+    <script src="auth.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>
