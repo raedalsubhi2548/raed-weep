@@ -3,24 +3,26 @@
    ============================================= */
 
 /* =============================================
-   FLOATING CART BUTTON
+   FLOATING CART BUTTON - HIDDEN BY DEFAULT
    ============================================= */
 .floating-cart {
-    position: fixed !important;
-    bottom: 30px !important;
-    left: 30px !important;
-    z-index: 9999 !important;
-    display: block !important;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    pointer-events: none;
+}
+
+/* Floating Cart - VISIBLE when items in cart */
+.floating-cart.visible {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.floating-cart.visible {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: scale(1) !important;
+    pointer-events: auto;
 }
 
 .floating-cart-btn {
@@ -107,6 +109,7 @@
 /* =============================================
    CART DRAWER
    ============================================= */
+/* Cart Overlay - HIDDEN BY DEFAULT */
 .cart-overlay {
     position: fixed;
     top: 0;
@@ -119,31 +122,41 @@
     visibility: hidden;
     transition: all 0.3s;
     backdrop-filter: blur(5px);
+    pointer-events: none;
 }
 
+/* Cart Overlay - VISIBLE when cart is open */
 .cart-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
+/* Cart Drawer - HIDDEN BY DEFAULT */
 .cart-drawer {
     position: fixed;
     top: 0;
-    left: -400px;
+    left: -100%;
     width: 380px;
     max-width: 90vw;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%);
     z-index: 10001;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
+    box-shadow: none;
+    visibility: hidden;
+    opacity: 0;
 }
 
+/* Cart Drawer - VISIBLE when .open class is added */
 .cart-drawer.open {
     left: 0;
+    visibility: visible;
+    opacity: 1;
+    box-shadow: 10px 0 50px rgba(0, 0, 0, 0.5);
 }
 
 .cart-drawer-header {

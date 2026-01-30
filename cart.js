@@ -318,7 +318,7 @@ const Cart = (function() {
         
         if (overlay) overlay.classList.add('active');
         if (drawer) drawer.classList.add('open');
-        document.body.classList.add('no-scroll');
+        document.body.style.overflow = 'hidden';
     }
     
     /**
@@ -330,7 +330,7 @@ const Cart = (function() {
         
         if (overlay) overlay.classList.remove('active');
         if (drawer) drawer.classList.remove('open');
-        document.body.classList.remove('no-scroll');
+        document.body.style.overflow = '';
     }
     
     /**
