@@ -394,6 +394,23 @@ const Cart = (function() {
 })();
 
 // =====================================================
+// MAKE CART FUNCTIONS GLOBALLY ACCESSIBLE
+// =====================================================
+window.Cart = Cart;
+window.addToCart = function(id, name, price, icon, qty) {
+    return Cart.addToCart(id, name, price, icon, qty);
+};
+window.removeFromCart = function(id) {
+    return Cart.removeFromCart(id);
+};
+window.openCartDrawer = function() {
+    return Cart.openDrawer();
+};
+window.closeCartDrawer = function() {
+    return Cart.closeDrawer();
+};
+
+// =====================================================
 // TOAST NOTIFICATION SYSTEM
 // =====================================================
 
@@ -539,6 +556,60 @@ function getOrderById(orderNumber) {
 }
 
 // =====================================================
+// CHECKOUT FUNCTION
+// =====================================================
+
+function proceedToCheckout() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    // Check if logged in
+    if (!user || !user.isLoggedIn) {
+        Cart.closeDrawer();
+        if (typeof openAuthModal === 'function') {
+            setTimeout(openAuthModal, 300);
+        }
+        showToast('يرجى تسجيل الدخول أولاً', 'info');
+        return;
+    }
+    
+    // Check if cart is empty
+    if (Cart.isEmpty()) {
+        showToast('السلة فارغة', 'error');
+        return;
+    }
+    
+    // Create order
+    const order = {
+        orderNumber: 'ORD-' + Date.now().toString().slice(-8),
+        items: Cart.getCart(),
+        total: Cart.getCartTotal(),
+        status: 'pending',
+        createdAt: Date.now()
+    };
+    
+    // Save order to user's orders
+    const ordersKey = 'orders_' + user.email;
+    const orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
+    orders.unshift(order);
+    localStorage.setItem(ordersKey, JSON.stringify(orders));
+    
+    // Clear cart
+    Cart.clearCart();
+    Cart.closeDrawer();
+    
+    // Show success message
+    showToast('تم إرسال طلبك بنجاح! رقم الطلب: ' + order.orderNumber, 'success');
+    
+    // Redirect to orders page after 2 seconds
+    setTimeout(() => {
+        window.location.href = 'orders.html';
+    }, 2000);
+}
+
+// Make proceedToCheckout global
+window.proceedToCheckout = proceedToCheckout;
+
+// =====================================================
 // INITIALIZE ON DOM READY
 // =====================================================
 
@@ -563,23 +634,9 @@ document.addEventListener('DOMContentLoaded', () => {
         cartOverlay.addEventListener('click', () => Cart.closeDrawer());
     }
     
-    // Setup checkout button
+    // Setup checkout button - now uses proceedToCheckout
     const checkoutBtn = document.getElementById('checkoutBtn');
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (!user || !user.isLoggedIn) {
-                if (typeof showToast === 'function') {
-                    showToast('يرجى تسجيل الدخول أولاً', 'info');
-                }
-                Cart.closeDrawer();
-                if (typeof openAuthModal === 'function') {
-                    setTimeout(openAuthModal, 300);
-                }
-                return;
-            }
-            // Navigate to checkout
-            window.location.href = 'checkout.html';
-        });
+        checkoutBtn.addEventListener('click', proceedToCheckout);
     }
 });

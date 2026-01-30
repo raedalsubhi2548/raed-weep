@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلباتي - رائد | Raed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.05);
+            --text: #fff;
+            --text-muted: rgba(255,255,255,0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: var(--text);
+        }
+        
+        .orders-page {
+            min-height: 100vh;
+            padding: 30px 20px 50px;
+        }
+        
+        .orders-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .orders-header {
+            margin-bottom: 40px;
+        }
+        
+        .orders-header h1 {
+            color: #fff;
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .orders-header h1 i {
+            color: var(--primary);
+        }
+        
+        .orders-header p {
+            color: var(--text-muted);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        .back-link:hover {
+            color: #fff;
+        }
+        
+        .order-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .order-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .order-number {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        .order-date {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        
+        .order-status {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .status-processing {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+        
+        .status-completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .status-cancelled {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .order-items {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+        
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .order-item:last-child {
+            border-bottom: none;
+        }
+        
+        .order-item-name {
+            color: #fff;
+            font-weight: 500;
+        }
+        
+        .order-item-price {
+            color: var(--text-muted);
+        }
+        
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .order-total-label {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .order-total-amount {
+            color: var(--success);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .no-orders {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        
+        .no-orders i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0.3;
+        }
+        
+        .no-orders h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .no-orders p {
+            margin-bottom: 30px;
+        }
+        
+        .no-orders a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .no-orders a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .orders-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--primary);
+            color: #fff;
+        }
+        
+        @media (max-width: 480px) {
+            .order-header {
+                flex-direction: column;
+            }
+            
+            .order-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orders-page">
+        <div class="orders-container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة للرئيسية
+            </a>
+            
+            <div class="orders-header">
+                <h1><i class="fas fa-shopping-bag"></i> طلباتي</h1>
+                <p>جميع طلباتك السابقة والحالية</p>
+            </div>
+            
+            <div class="orders-filter">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="pending">قيد الانتظار</button>
+                <button class="filter-btn" data-filter="processing">قيد التنفيذ</button>
+                <button class="filter-btn" data-filter="completed">مكتملة</button>
+            </div>
+            
+            <div id="ordersList">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let allOrders = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            if (!user || !user.isLoggedIn) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            loadOrders(user.email);
+            setupFilters();
+        });
+        
+        function loadOrders(email) {
+            allOrders = JSON.parse(localStorage.getItem('orders_' + email)) || [];
+            displayOrders(allOrders);
+        }
+        
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    filterOrders(filter);
+                });
+            });
+        }
+        
+        function filterOrders(status) {
+            if (status === 'all') {
+                displayOrders(allOrders);
+            } else {
+                const filtered = allOrders.filter(order => order.status === status);
+                displayOrders(filtered);
+            }
+        }
+        
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h2>لا توجد طلبات بعد</h2>
+                        <p>ابدأ بتصفح خدماتنا واطلب ما يناسبك</p>
+                        <a href="index.html#services">تصفح الخدمات</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = orders.map(order => `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-number">طلب #${order.orderNumber || 'غير محدد'}</div>
+                            <div class="order-date">${formatDate(order.createdAt)}</div>
+                        </div>
+                        <span class="order-status status-${order.status || 'pending'}">${getStatusText(order.status || 'pending')}</span>
+                    </div>
+                    <div class="order-items">
+                        ${(order.items || []).map(item => `
+                            <div class="order-item">
+                                <span class="order-item-name">${item.serviceName || item.name || 'خدمة'}</span>
+                                <span class="order-item-price">${item.servicePrice || item.price || 0} ريال</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="order-total">
+                        <span class="order-total-label">المجموع الكلي</span>
+                        <span class="order-total-amount">${order.total || 0} ريال</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function getStatusText(status) {
+            const texts = {
+                'pending': 'قيد الانتظار',
+                'processing': 'قيد التنفيذ',
+                'completed': 'مكتمل',
+                'cancelled': 'ملغي'
+            };
+            return texts[status] || status;
+        }
+        
+        function formatDate(timestamp) {
+            if (!timestamp) return 'غير محدد';
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+    </script>
+</body>
+</html>

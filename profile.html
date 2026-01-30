@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معلوماتي - رائد | Raed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.05);
+            --text: #fff;
+            --text-muted: rgba(255,255,255,0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: var(--text);
+        }
+        
+        .profile-page {
+            min-height: 100vh;
+            padding: 30px 20px 50px;
+        }
+        
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: #fff;
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.4);
+        }
+        
+        .profile-header h1 {
+            color: #fff;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        
+        .profile-header p {
+            color: var(--text-muted);
+        }
+        
+        .profile-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-card h2 {
+            color: #fff;
+            font-size: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-card h2 i {
+            color: var(--primary);
+        }
+        
+        .profile-field {
+            margin-bottom: 20px;
+        }
+        
+        .profile-field label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .profile-field input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Tajawal', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .profile-field input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+        
+        .profile-field input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .profile-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        .back-link:hover {
+            color: #fff;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.5);
+            opacity: 0;
+            transition: all 0.4s;
+            z-index: 9999;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 480px) {
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-page">
+        <div class="profile-container">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-right"></i>
+                العودة للرئيسية
+            </a>
+            
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1 id="profileName">جاري التحميل...</h1>
+                <p id="profileEmail"></p>
+            </div>
+            
+            <div class="profile-card">
+                <h2><i class="fas fa-user-edit"></i> المعلومات الشخصية</h2>
+                
+                <div class="profile-field">
+                    <label>الاسم الأول</label>
+                    <input type="text" id="editFirstName" placeholder="الاسم الأول">
+                </div>
+                
+                <div class="profile-field">
+                    <label>الاسم الأخير</label>
+                    <input type="text" id="editLastName" placeholder="الاسم الأخير">
+                </div>
+                
+                <div class="profile-field">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="editEmail" disabled>
+                </div>
+                
+                <div class="profile-field">
+                    <label>رقم الجوال</label>
+                    <input type="tel" id="editPhone" placeholder="05xxxxxxxx" dir="ltr">
+                </div>
+                
+                <button class="profile-btn" onclick="updateProfile()">
+                    <i class="fas fa-save"></i>
+                    حفظ التغييرات
+                </button>
+            </div>
+            
+            <div class="profile-card">
+                <h2><i class="fas fa-chart-bar"></i> إحصائياتي</h2>
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="number" id="totalOrders">0</div>
+                        <div class="label">إجمالي الطلبات</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number" id="totalSpent">0</div>
+                        <div class="label">إجمالي المشتريات (ريال)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast"></div>
+    
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        
+        // Load profile data
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            if (!user || !user.isLoggedIn) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            const profile = JSON.parse(localStorage.getItem('userProfile_' + user.email));
+            
+            if (profile) {
+                document.getElementById('profileName').textContent = profile.firstName + ' ' + profile.lastName;
+                document.getElementById('profileEmail').textContent = profile.email;
+                document.getElementById('editFirstName').value = profile.firstName || '';
+                document.getElementById('editLastName').value = profile.lastName || '';
+                document.getElementById('editEmail').value = profile.email || '';
+                document.getElementById('editPhone').value = profile.phone || '';
+            } else {
+                document.getElementById('profileName').textContent = 'مستخدم';
+                document.getElementById('profileEmail').textContent = user.email;
+                document.getElementById('editEmail').value = user.email;
+            }
+            
+            // Load orders stats
+            const orders = JSON.parse(localStorage.getItem('orders_' + user.email)) || [];
+            document.getElementById('totalOrders').textContent = orders.length;
+            
+            const totalSpent = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+            document.getElementById('totalSpent').textContent = totalSpent;
+        });
+        
+        function updateProfile() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) return;
+            
+            const firstName = document.getElementById('editFirstName').value.trim();
+            const lastName = document.getElementById('editLastName').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
+            
+            if (!firstName || !lastName) {
+                showToast('يرجى إدخال الاسم الأول والأخير');
+                return;
+            }
+            
+            const profile = {
+                email: user.email,
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                updatedAt: Date.now()
+            };
+            
+            localStorage.setItem('userProfile_' + user.email, JSON.stringify(profile));
+            
+            showToast('تم حفظ التغييرات بنجاح! ✅');
+            document.getElementById('profileName').textContent = firstName + ' ' + lastName;
+        }
+    </script>
+</body>
+</html>

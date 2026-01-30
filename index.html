@@ -66,11 +66,11 @@
                 <span id="userEmail" class="user-email"></span>
             </div>
             <div class="dropdown-divider"></div>
-            <a href="#" id="myInfoBtn" class="dropdown-item">
+            <a href="profile.html" class="dropdown-item">
                 <i class="fas fa-user"></i>
                 معلوماتي
             </a>
-            <a href="#" id="myOrdersBtn" class="dropdown-item">
+            <a href="orders.html" class="dropdown-item">
                 <i class="fas fa-shopping-bag"></i>
                 طلباتي
             </a>
@@ -83,19 +83,19 @@
     </div>
 
     <!-- ========== FLOATING CART BUTTON ========== -->
-    <div id="floatingCart" class="floating-cart">
-        <button id="floatingCartBtn" class="floating-cart-btn" aria-label="سلة المشتريات">
+    <div id="floatingCart" class="floating-cart visible">
+        <button type="button" id="floatingCartBtn" class="floating-cart-btn" onclick="openCartDrawer()" aria-label="سلة المشتريات">
             <i class="fas fa-shopping-cart"></i>
             <span id="floatingCartCount" class="cart-count">0</span>
         </button>
     </div>
 
     <!-- ========== CART DRAWER ========== -->
-    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
     <aside class="cart-drawer" id="cartDrawer">
         <div class="cart-drawer-header">
             <h3>🛒 سلة المشتريات</h3>
-            <button id="closeCartDrawer" class="close-cart">&times;</button>
+            <button type="button" id="closeCartDrawer" class="close-cart" onclick="closeCartDrawer()">&times;</button>
         </div>
         <div id="cartItems" class="cart-items">
             <div class="cart-empty">
@@ -108,7 +108,10 @@
                 <span>المجموع:</span>
                 <span id="cartTotal">0 ريال</span>
             </div>
-            <button id="checkoutBtn" class="checkout-btn">إتمام الطلب</button>
+            <button type="button" id="checkoutBtn" class="checkout-btn" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i>
+                إتمام الطلب
+            </button>
         </div>
     </aside>
 
