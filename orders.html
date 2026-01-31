@@ -310,6 +310,8 @@
         });
         
         async function loadOrders(email) {
+            console.log('📦 Loading orders for:', email);
+            
             // Show loading
             document.getElementById('ordersList').innerHTML = `
                 <div class="no-orders">
@@ -319,16 +321,28 @@
             `;
             
             // Try Firebase first
-            if (typeof getUserOrders === 'function') {
-                allOrders = await getUserOrders(email);
+            let orders = [];
+            
+            try {
+                if (typeof getUserOrders === 'function') {
+                    orders = await getUserOrders(email);
+                    console.log('Firebase orders:', orders);
+                }
+            } catch (error) {
+                console.error('Firebase error:', error);
             }
             
-            // Fallback to localStorage if Firebase is empty
-            if (allOrders.length === 0) {
-                allOrders = JSON.parse(localStorage.getItem('orders_' + email)) || [];
+            // If no Firebase orders, try localStorage
+            if (orders.length === 0) {
+                const localOrders = localStorage.getItem('orders_' + email);
+                if (localOrders) {
+                    orders = JSON.parse(localOrders);
+                    console.log('localStorage orders:', orders);
+                }
             }
             
-            displayOrders(allOrders);
+            allOrders = orders;
+            displayOrders(orders);
         }
         
         function setupFilters() {

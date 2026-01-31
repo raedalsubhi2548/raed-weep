@@ -1,8 +1,8 @@
 // ========================================
-// FIREBASE DATABASE SERVICE
-// رائد | Raed - E-Commerce System
+// FIREBASE DATABASE SERVICE - FIXED VERSION
 // ========================================
 
+// Firebase Config
 const firebaseConfig = {
     apiKey: "AIzaSyCvRUAfFT_sPaAqENElPo_ReQ-U8glB3Zo",
     authDomain: "raed-web.firebaseapp.com",
@@ -13,82 +13,106 @@ const firebaseConfig = {
     measurementId: "G-BEBF5G9GHC"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase (only once)
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 const db = firebase.firestore();
 
-// Admin Email - Store Owner
+// Admin Email
 const ADMIN_EMAIL = 'r1alsubhi@gmail.com';
 
 // ==================== USER FUNCTIONS ====================
 
-/**
- * Save user profile to Firestore
- */
+// Save user to Firebase
 async function saveUserToDatabase(profile) {
+    console.log('💾 Saving user to Firebase:', profile.email);
+    
     try {
-        await db.collection('users').doc(profile.email).set({
-            ...profile,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        const userRef = db.collection('users').doc(profile.email);
+        
+        await userRef.set({
+            email: profile.email,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            phone: profile.phone || '',
+            createdAt: profile.createdAt || Date.now(),
+            updatedAt: Date.now()
         }, { merge: true });
-        console.log('✅ User saved to Firebase:', profile.email);
+        
+        console.log('✅ User saved successfully to Firebase');
         return true;
     } catch (error) {
-        console.error('❌ Error saving user:', error);
+        console.error('❌ Error saving user to Firebase:', error);
         return false;
     }
 }
 
-/**
- * Get user profile from Firestore
- */
+// Get user from Firebase
 async function getUserFromDatabase(email) {
+    console.log('🔍 Looking for user in Firebase:', email);
+    
     try {
-        const doc = await db.collection('users').doc(email).get();
+        const userRef = db.collection('users').doc(email);
+        const doc = await userRef.get();
+        
         if (doc.exists) {
-            console.log('✅ User loaded from Firebase:', email);
+            console.log('✅ User found in Firebase:', doc.data());
             return doc.data();
+        } else {
+            console.log('ℹ️ User NOT found in Firebase');
+            return null;
         }
-        return null;
     } catch (error) {
-        console.error('❌ Error getting user:', error);
+        console.error('❌ Error getting user from Firebase:', error);
         return null;
     }
 }
 
 // ==================== ORDER FUNCTIONS ====================
 
-/**
- * Save order to Firestore
- */
+// Save order to Firebase
 async function saveOrderToDatabase(order, userEmail) {
+    console.log('💾 Saving order to Firebase:', order.orderNumber);
+    
     try {
-        await db.collection('orders').doc(order.orderNumber).set({
-            ...order,
+        const orderRef = db.collection('orders').doc(order.orderNumber);
+        
+        await orderRef.set({
+            orderNumber: order.orderNumber,
             userEmail: userEmail,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            items: order.items,
+            total: order.total,
+            status: order.status || 'pending',
+            createdAt: Date.now()
         });
-        console.log('✅ Order saved to Firebase:', order.orderNumber);
+        
+        console.log('✅ Order saved successfully to Firebase');
         return true;
     } catch (error) {
-        console.error('❌ Error saving order:', error);
+        console.error('❌ Error saving order to Firebase:', error);
         return false;
     }
 }
 
-/**
- * Get user's orders from Firestore
- */
+// Get user's orders from Firebase
 async function getUserOrders(email) {
+    console.log('🔍 Getting orders for:', email);
+    
     try {
         const snapshot = await db.collection('orders')
             .where('userEmail', '==', email)
-            .orderBy('createdAt', 'desc')
             .get();
         
         const orders = [];
-        snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
-        console.log('✅ Loaded', orders.length, 'orders for:', email);
+        snapshot.forEach(doc => {
+            orders.push({ id: doc.id, ...doc.data() });
+        });
+        
+        // Sort by createdAt descending
+        orders.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        
+        console.log('✅ Found', orders.length, 'orders');
         return orders;
     } catch (error) {
         console.error('❌ Error getting orders:', error);
@@ -98,25 +122,27 @@ async function getUserOrders(email) {
 
 // ==================== ADMIN FUNCTIONS ====================
 
-/**
- * Check if user is admin
- */
+// Check if admin
 function isAdmin(email) {
-    return email === ADMIN_EMAIL;
+    return email && email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 }
 
-/**
- * Get all orders (Admin only)
- */
+// Get ALL orders (Admin)
 async function getAllOrders() {
+    console.log('👑 Admin: Getting all orders');
+    
     try {
-        const snapshot = await db.collection('orders')
-            .orderBy('createdAt', 'desc')
-            .get();
+        const snapshot = await db.collection('orders').get();
         
         const orders = [];
-        snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
-        console.log('✅ Admin: Loaded', orders.length, 'total orders');
+        snapshot.forEach(doc => {
+            orders.push({ id: doc.id, ...doc.data() });
+        });
+        
+        // Sort by createdAt descending
+        orders.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        
+        console.log('✅ Admin: Found', orders.length, 'total orders');
         return orders;
     } catch (error) {
         console.error('❌ Error getting all orders:', error);
@@ -124,15 +150,19 @@ async function getAllOrders() {
     }
 }
 
-/**
- * Get all users (Admin only)
- */
+// Get ALL users (Admin)
 async function getAllUsers() {
+    console.log('👑 Admin: Getting all users');
+    
     try {
         const snapshot = await db.collection('users').get();
+        
         const users = [];
-        snapshot.forEach(doc => users.push({ id: doc.id, ...doc.data() }));
-        console.log('✅ Admin: Loaded', users.length, 'users');
+        snapshot.forEach(doc => {
+            users.push({ id: doc.id, ...doc.data() });
+        });
+        
+        console.log('✅ Admin: Found', users.length, 'total users');
         return users;
     } catch (error) {
         console.error('❌ Error getting all users:', error);
@@ -140,26 +170,25 @@ async function getAllUsers() {
     }
 }
 
-/**
- * Update order status (Admin only)
- */
+// Update order status (Admin)
 async function updateOrderStatus(orderNumber, newStatus) {
+    console.log('✏️ Updating order status:', orderNumber, '→', newStatus);
+    
     try {
         await db.collection('orders').doc(orderNumber).update({
             status: newStatus,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            updatedAt: Date.now()
         });
-        console.log('✅ Order status updated:', orderNumber, '→', newStatus);
+        
+        console.log('✅ Order status updated');
         return true;
     } catch (error) {
-        console.error('❌ Error updating order status:', error);
+        console.error('❌ Error updating order:', error);
         return false;
     }
 }
 
-/**
- * Get admin dashboard statistics
- */
+// Get admin statistics
 async function getAdminStats() {
     try {
         const ordersSnapshot = await db.collection('orders').get();
@@ -177,16 +206,22 @@ async function getAdminStats() {
         return {
             totalOrders: ordersSnapshot.size,
             totalUsers: usersSnapshot.size,
-            totalRevenue,
-            pendingOrders
+            totalRevenue: totalRevenue,
+            pendingOrders: pendingOrders
         };
     } catch (error) {
         console.error('❌ Error getting stats:', error);
-        return null;
+        return {
+            totalOrders: 0,
+            totalUsers: 0,
+            totalRevenue: 0,
+            pendingOrders: 0
+        };
     }
 }
 
 // ==================== MAKE FUNCTIONS GLOBAL ====================
+window.db = db;
 window.saveUserToDatabase = saveUserToDatabase;
 window.getUserFromDatabase = getUserFromDatabase;
 window.saveOrderToDatabase = saveOrderToDatabase;
@@ -197,6 +232,8 @@ window.getAllUsers = getAllUsers;
 window.updateOrderStatus = updateOrderStatus;
 window.getAdminStats = getAdminStats;
 window.ADMIN_EMAIL = ADMIN_EMAIL;
-window.db = db;
+
+console.log('🔥 Firebase Database Service Loaded');
+console.log('👑 Admin Email:', ADMIN_EMAIL);
 
 console.log('🔥 Firebase Database Service Initialized');

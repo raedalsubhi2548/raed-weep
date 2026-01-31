@@ -81,42 +81,80 @@ function verifyOTP(enteredOTP) {
 }
 
 async function onAuthSuccess(email) {
-    const user = { email: email, loggedInAt: Date.now(), isLoggedIn: true };
+    console.log('🔐 Auth success for:', email);
+    
+    // Save login state
+    const user = {
+        email: email,
+        loggedInAt: Date.now(),
+        isLoggedIn: true
+    };
     localStorage.setItem('user', JSON.stringify(user));
-
-    // Try to get profile from Firebase first, then localStorage
+    
+    // IMPORTANT: Check Firebase FIRST for existing profile
     let profile = null;
     
-    if (typeof getUserFromDatabase === 'function') {
-        profile = await getUserFromDatabase(email);
+    try {
+        // Try to get from Firebase
+        if (typeof getUserFromDatabase === 'function') {
+            profile = await getUserFromDatabase(email);
+            console.log('Firebase profile result:', profile);
+        }
+    } catch (error) {
+        console.error('Error checking Firebase:', error);
     }
     
+    // If not in Firebase, check localStorage
     if (!profile) {
-        const localProfile = localStorage.getItem('userProfile_' + email);
-        if (localProfile) profile = JSON.parse(localProfile);
+        const localData = localStorage.getItem('userProfile_' + email);
+        if (localData) {
+            profile = JSON.parse(localData);
+            console.log('Found profile in localStorage:', profile);
+            
+            // Sync to Firebase
+            if (typeof saveUserToDatabase === 'function') {
+                await saveUserToDatabase(profile);
+            }
+        }
     }
     
-    if (profile) {
+    // Decide what to show
+    if (profile && profile.firstName) {
+        // RETURNING USER - has profile
+        console.log('✅ Returning user:', profile.firstName);
+        
+        // Save to localStorage as backup
+        localStorage.setItem('userProfile_' + email, JSON.stringify(profile));
+        
         closeAuthModal();
         updateUIForLoggedInUser(profile);
         
-        // Check if admin
         if (typeof isAdmin === 'function' && isAdmin(email)) {
             showToast('مرحباً مدير المتجر! 👑', 'success');
         } else {
-            showToast('مرحباً ' + profile.firstName + '! 👋', 'success');
+            showToast('مرحباً بعودتك ' + profile.firstName + '! 👋', 'success');
         }
     } else {
+        // NEW USER - needs to complete profile
+        console.log('🆕 New user, showing profile form');
         showStep('profileStep');
     }
-
+    
+    // Clear OTP data
     currentOTP = null;
     otpExpiry = null;
 }
 
 async function saveUserProfile(firstName, lastName, phone) {
-    if (!firstName || !lastName) {
-        showToast('يرجى إدخال الاسم', 'error');
+    console.log('💾 Saving new user profile...');
+    
+    // Validate
+    if (!firstName || !firstName.trim()) {
+        showToast('يرجى إدخال الاسم الأول', 'error');
+        return;
+    }
+    if (!lastName || !lastName.trim()) {
+        showToast('يرجى إدخال الاسم الأخير', 'error');
         return;
     }
     
@@ -124,18 +162,29 @@ async function saveUserProfile(firstName, lastName, phone) {
         email: currentEmail,
         firstName: firstName.trim(),
         lastName: lastName.trim(),
-        phone: phone || '',
+        phone: phone ? phone.trim() : '',
         createdAt: Date.now()
     };
     
-    // Save to localStorage (backup)
-    localStorage.setItem('userProfile_' + currentEmail, JSON.stringify(profile));
+    console.log('Profile to save:', profile);
     
-    // Save to Firebase (main)
+    // Save to localStorage FIRST (backup)
+    localStorage.setItem('userProfile_' + currentEmail, JSON.stringify(profile));
+    console.log('✅ Saved to localStorage');
+    
+    // Save to Firebase
+    let firebaseSaved = false;
     if (typeof saveUserToDatabase === 'function') {
-        await saveUserToDatabase(profile);
+        firebaseSaved = await saveUserToDatabase(profile);
     }
     
+    if (firebaseSaved) {
+        console.log('✅ Saved to Firebase');
+    } else {
+        console.log('⚠️ Firebase save failed, but localStorage is OK');
+    }
+    
+    // Close modal and update UI
     closeAuthModal();
     updateUIForLoggedInUser(profile);
     showToast('تم إنشاء حسابك بنجاح! 🎉', 'success');

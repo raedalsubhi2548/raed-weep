@@ -556,10 +556,12 @@ function getOrderById(orderNumber) {
 }
 
 // =====================================================
-// CHECKOUT FUNCTION
+// CHECKOUT FUNCTION - FIXED
 // =====================================================
 
-function proceedToCheckout() {
+async function proceedToCheckout() {
+    console.log('🛒 Processing checkout...');
+    
     const user = JSON.parse(localStorage.getItem('user'));
     
     // Check if logged in
@@ -581,35 +583,64 @@ function proceedToCheckout() {
     // Create order
     const order = {
         orderNumber: 'ORD-' + Date.now().toString().slice(-8),
-        items: Cart.getCart(),
+        items: Cart.getCart().map(item => ({
+            id: item.id,
+            name: item.name,
+            price: item.price
+        })),
         total: Cart.getCartTotal(),
         status: 'pending',
         userEmail: user.email,
         createdAt: Date.now()
     };
     
-    // Save order to Firebase (main)
+    console.log('Order to save:', order);
+    
+    // Save to Firebase
+    let saved = false;
     if (typeof saveOrderToDatabase === 'function') {
-        saveOrderToDatabase(order, user.email);
+        saved = await saveOrderToDatabase(order, user.email);
     }
     
-    // Save order to localStorage (backup)
-    const ordersKey = 'orders_' + user.email;
-    const orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
-    orders.unshift(order);
-    localStorage.setItem(ordersKey, JSON.stringify(orders));
-    
-    // Clear cart
-    Cart.clearCart();
-    Cart.closeDrawer();
-    
-    // Show success message
-    showToast('تم إرسال طلبك بنجاح! رقم الطلب: ' + order.orderNumber, 'success');
-    
-    // Redirect to orders page after 2 seconds
-    setTimeout(() => {
-        window.location.href = 'orders.html';
-    }, 2000);
+    if (saved) {
+        console.log('✅ Order saved to Firebase');
+        
+        // Also save to localStorage as backup
+        const ordersKey = 'orders_' + user.email;
+        const orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
+        orders.unshift(order);
+        localStorage.setItem(ordersKey, JSON.stringify(orders));
+        
+        // Clear cart
+        Cart.clearCart();
+        Cart.closeDrawer();
+        
+        // Show success message
+        showToast('تم إرسال طلبك بنجاح! رقم الطلب: ' + order.orderNumber, 'success');
+        
+        // Redirect to orders page after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'orders.html';
+        }, 2000);
+    } else {
+        console.log('⚠️ Firebase failed, saving to localStorage only');
+        
+        // Save to localStorage anyway
+        const ordersKey = 'orders_' + user.email;
+        const orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
+        orders.unshift(order);
+        localStorage.setItem(ordersKey, JSON.stringify(orders));
+        
+        // Clear cart
+        Cart.clearCart();
+        Cart.closeDrawer();
+        
+        showToast('تم إرسال طلبك بنجاح! رقم الطلب: ' + order.orderNumber, 'success');
+        
+        setTimeout(() => {
+            window.location.href = 'orders.html';
+        }, 2000);
+    }
 }
 
 // Make proceedToCheckout global
