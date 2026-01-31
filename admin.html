@@ -621,12 +621,12 @@
             
             // Load orders with customer names
             const orders = await getAllOrders();
-            const users = await getAllUsers();
+            const usersList = await getAllUsers();
             
             // Create a map of email -> user data
             const userMap = {};
-            users.forEach(user => {
-                userMap[user.email] = user;
+            usersList.forEach(u => {
+                userMap[u.email] = u;
             });
             
             const ordersBody = document.getElementById('ordersBody');
@@ -685,11 +685,10 @@
                 }).join('');
             }
             
-            // Load users
-            const users = await getAllUsers();
+            // Load users table (reuse usersList)
             const usersBody = document.getElementById('usersBody');
             
-            if (users.length === 0) {
+            if (usersList.length === 0) {
                 usersBody.innerHTML = `
                     <tr>
                         <td colspan="4" class="empty-state">
@@ -699,20 +698,20 @@
                     </tr>
                 `;
             } else {
-                usersBody.innerHTML = users.map(user => {
-                    const initials = ((user.firstName || '?')[0] + (user.lastName || '?')[0]).toUpperCase();
+                usersBody.innerHTML = usersList.map(userData => {
+                    const initials = ((userData.firstName || '?')[0] + (userData.lastName || '?')[0]).toUpperCase();
                     
                     return `
                         <tr>
                             <td>
                                 <div class="user-badge">
                                     <div class="user-avatar">${initials}</div>
-                                    <strong>${user.firstName || ''} ${user.lastName || ''}</strong>
+                                    <strong>${userData.firstName || ''} ${userData.lastName || ''}</strong>
                                 </div>
                             </td>
-                            <td>${user.email}</td>
-                            <td>${user.phone || '-'}</td>
-                            <td>${formatDate(user.createdAt)}</td>
+                            <td>${userData.email}</td>
+                            <td>${userData.phone || '-'}</td>
+                            <td>${formatDate(userData.createdAt)}</td>
                         </tr>
                     `;
                 }).join('');
