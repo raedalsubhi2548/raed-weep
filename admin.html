@@ -198,6 +198,52 @@
             background: rgba(255,255,255,0.02);
         }
         
+        /* Customer Info */
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .customer-info strong {
+            color: #fff;
+        }
+        
+        .customer-info small {
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+        }
+        
+        /* Order Link */
+        .order-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .order-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* View Button */
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--primary);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .view-btn:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: scale(1.1);
+        }
+        
         /* Status Select */
         .status-select {
             padding: 10px 15px;
@@ -452,11 +498,12 @@
                             <th>المجموع</th>
                             <th>الحالة</th>
                             <th>التاريخ</th>
+                            <th>التفاصيل</th>
                         </tr>
                     </thead>
                     <tbody id="ordersBody">
                         <tr>
-                            <td colspan="6" class="loading">
+                            <td colspan="7" class="loading">
                                 <i class="fas fa-spinner fa-spin"></i>
                                 <p>جاري تحميل الطلبات...</p>
                             </td>
@@ -572,14 +619,22 @@
                 document.getElementById('statPending').textContent = stats.pendingOrders;
             }
             
-            // Load orders
+            // Load orders with customer names
             const orders = await getAllOrders();
+            const users = await getAllUsers();
+            
+            // Create a map of email -> user data
+            const userMap = {};
+            users.forEach(user => {
+                userMap[user.email] = user;
+            });
+            
             const ordersBody = document.getElementById('ordersBody');
             
             if (orders.length === 0) {
                 ordersBody.innerHTML = `
                     <tr>
-                        <td colspan="6" class="empty-state">
+                        <td colspan="7" class="empty-state">
                             <i class="fas fa-inbox"></i>
                             <p>لا توجد طلبات حتى الآن</p>
                         </td>
@@ -590,10 +645,25 @@
                     const items = order.items || [];
                     const itemNames = items.map(i => i.serviceName || i.name || 'خدمة').join('، ');
                     
+                    // Get customer info
+                    const customer = userMap[order.userEmail] || {};
+                    const customerName = customer.firstName && customer.lastName 
+                        ? `${customer.firstName} ${customer.lastName}` 
+                        : 'غير معروف';
+                    
                     return `
                         <tr>
-                            <td><strong style="color: var(--primary);">${order.orderNumber}</strong></td>
-                            <td>${order.userEmail}</td>
+                            <td>
+                                <a href="order-details.html?id=${order.orderNumber}" class="order-link">
+                                    ${order.orderNumber}
+                                </a>
+                            </td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>${customerName}</strong>
+                                    <small>${order.userEmail}</small>
+                                </div>
+                            </td>
                             <td class="order-items" title="${itemNames}">${itemNames || '-'}</td>
                             <td><strong>${order.total || 0} ريال</strong></td>
                             <td>
@@ -605,6 +675,11 @@
                                 </select>
                             </td>
                             <td>${formatDate(order.createdAt)}</td>
+                            <td>
+                                <a href="order-details.html?id=${order.orderNumber}" class="view-btn" title="عرض التفاصيل">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
                         </tr>
                     `;
                 }).join('');

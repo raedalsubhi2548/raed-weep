@@ -146,23 +146,32 @@ async function onAuthSuccess(email) {
 }
 
 async function saveUserProfile(firstName, lastName, phone) {
-    console.log('💾 Saving new user profile...');
+    console.log('💾 Attempting to save profile...');
     
-    // Validate
-    if (!firstName || !firstName.trim()) {
-        showToast('يرجى إدخال الاسم الأول', 'error');
-        return;
-    }
-    if (!lastName || !lastName.trim()) {
-        showToast('يرجى إدخال الاسم الأخير', 'error');
-        return;
+    // Get values from form if not passed
+    const fName = firstName || document.getElementById('firstName')?.value;
+    const lName = lastName || document.getElementById('lastName')?.value;
+    const pNumber = phone || document.getElementById('phoneNumber')?.value;
+    
+    // VALIDATION - Required fields
+    if (!fName || !fName.trim()) {
+        showToast('الاسم الأول مطلوب', 'error');
+        document.getElementById('firstName')?.focus();
+        return false;
     }
     
+    if (!lName || !lName.trim()) {
+        showToast('الاسم الأخير مطلوب', 'error');
+        document.getElementById('lastName')?.focus();
+        return false;
+    }
+    
+    // Create profile
     const profile = {
         email: currentEmail,
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        phone: phone ? phone.trim() : '',
+        firstName: fName.trim(),
+        lastName: lName.trim(),
+        phone: pNumber ? pNumber.trim() : '',
         createdAt: Date.now()
     };
     
@@ -188,6 +197,8 @@ async function saveUserProfile(firstName, lastName, phone) {
     closeAuthModal();
     updateUIForLoggedInUser(profile);
     showToast('تم إنشاء حسابك بنجاح! 🎉', 'success');
+    
+    return true;
 }
 
 function logout() {
@@ -352,13 +363,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentEmail) sendOTP(currentEmail);
     });
     
-    document.getElementById('saveProfileBtn')?.addEventListener('click', () => {
-        const firstName = document.getElementById('firstName').value.trim();
-        const lastName = document.getElementById('lastName').value.trim();
-        const phone = document.getElementById('phoneNumber').value.trim();
+    document.getElementById('saveProfileBtn')?.addEventListener('click', async (e) => {
+        e.preventDefault();
         
-        if (!firstName || !lastName) {
-            showToast('يرجى إدخال الاسم الأول والأخير', 'error');
+        const firstName = document.getElementById('firstName')?.value?.trim();
+        const lastName = document.getElementById('lastName')?.value?.trim();
+        const phone = document.getElementById('phoneNumber')?.value?.trim();
+        
+        // Validate before saving
+        if (!firstName) {
+            showToast('الاسم الأول مطلوب', 'error');
+            document.getElementById('firstName')?.focus();
+            return;
+        }
+        
+        if (!lastName) {
+            showToast('الاسم الأخير مطلوب', 'error');
+            document.getElementById('lastName')?.focus();
             return;
         }
         
@@ -367,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        saveUserProfile(firstName, lastName, phone);
+        await saveUserProfile(firstName, lastName, phone);
     });
     
     document.getElementById('logoutBtn')?.addEventListener('click', (e) => {

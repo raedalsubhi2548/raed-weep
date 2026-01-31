@@ -382,14 +382,15 @@
                 <h2>أكمل بياناتك</h2>
                 <p>مرة واحدة فقط للتسجيل</p>
                 <div class="input-group">
-                    <input type="text" id="firstName" placeholder="الاسم الأول">
+                    <input type="text" id="firstName" placeholder="الاسم الأول *" required>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="lastName" placeholder="الاسم الأخير">
+                    <input type="text" id="lastName" placeholder="الاسم الأخير *" required>
                 </div>
                 <div class="input-group">
-                    <input type="tel" id="phoneNumber" placeholder="05xxxxxxxx" dir="ltr" inputmode="numeric">
+                    <input type="tel" id="phoneNumber" placeholder="رقم الجوال (اختياري)" dir="ltr" inputmode="numeric">
                 </div>
+                <p class="required-note">* حقول إجبارية</p>
                 <button id="saveProfileBtn" class="auth-btn">حفظ والمتابعة</button>
             </div>
         </div>
