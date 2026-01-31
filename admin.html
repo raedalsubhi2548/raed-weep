@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - رائد | Raed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255,255,255,0.05);
+            --text: #fff;
+            --text-muted: rgba(255,255,255,0.5);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+            color: var(--text);
+        }
+        
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .admin-header h1 {
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .admin-header h1 i {
+            color: var(--warning);
+        }
+        
+        .back-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+        }
+        
+        .stat-card .icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 18px;
+        }
+        
+        .stat-card .icon.purple { background: rgba(139,92,246,0.2); color: var(--primary); }
+        .stat-card .icon.green { background: rgba(16,185,129,0.2); color: var(--success); }
+        .stat-card .icon.blue { background: rgba(59,130,246,0.2); color: var(--info); }
+        .stat-card .icon.orange { background: rgba(245,158,11,0.2); color: var(--warning); }
+        
+        .stat-card .number {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        
+        /* Tabs */
+        .admin-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 14px 28px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+        
+        /* Table */
+        .admin-table {
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow-x: auto;
+        }
+        
+        .admin-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .admin-table th {
+            background: rgba(255,255,255,0.05);
+            padding: 18px 15px;
+            text-align: right;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .admin-table td {
+            padding: 18px 15px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+        
+        .admin-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+        
+        /* Status Select */
+        .status-select {
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 14px;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .status-select:hover {
+            border-color: var(--primary);
+        }
+        
+        .status-select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+        
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .status-pending { background: rgba(245,158,11,0.2); color: var(--warning); }
+        .status-processing { background: rgba(59,130,246,0.2); color: var(--info); }
+        .status-completed { background: rgba(16,185,129,0.2); color: var(--success); }
+        .status-cancelled { background: rgba(239,68,68,0.2); color: var(--error); }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Access Denied */
+        .access-denied {
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .access-denied i {
+            font-size: 100px;
+            color: var(--error);
+            margin-bottom: 30px;
+            display: block;
+        }
+        
+        .access-denied h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .access-denied p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .access-denied a {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .access-denied a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        
+        .empty-state i {
+            font-size: 70px;
+            margin-bottom: 25px;
+            display: block;
+            opacity: 0.3;
+        }
+        
+        .empty-state p {
+            font-size: 18px;
+        }
+        
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 60px;
+        }
+        
+        .loading i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Order Items */
+        .order-items {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        /* User Badge */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header h1 {
+                font-size: 22px;
+            }
+            
+            .stat-card .number {
+                font-size: 32px;
+            }
+            
+            .tab-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            color: #fff;
+            padding: 16px 30px;
+            border-radius: 14px;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.5);
+            opacity: 0;
+            transition: all 0.4s;
+            z-index: 9999;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Access Denied Screen -->
+    <div id="accessDenied" class="access-denied" style="display: none;">
+        <i class="fas fa-lock"></i>
+        <h1>غير مصرح لك بالدخول</h1>
+        <p>هذه الصفحة متاحة فقط لمدير المتجر</p>
+        <a href="index.html">العودة للرئيسية</a>
+    </div>
+    
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-container" style="display: none;">
+        <header class="admin-header">
+            <h1><i class="fas fa-crown"></i> لوحة التحكم</h1>
+            <a href="index.html" class="back-btn">
+                <i class="fas fa-arrow-right"></i>
+                العودة للموقع
+            </a>
+        </header>
+        
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon purple"><i class="fas fa-shopping-bag"></i></div>
+                <div class="number" id="statOrders">-</div>
+                <div class="label">إجمالي الطلبات</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon green"><i class="fas fa-coins"></i></div>
+                <div class="number" id="statRevenue">-</div>
+                <div class="label">المبيعات (ريال)</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon blue"><i class="fas fa-users"></i></div>
+                <div class="number" id="statUsers">-</div>
+                <div class="label">العملاء</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon orange"><i class="fas fa-clock"></i></div>
+                <div class="number" id="statPending">-</div>
+                <div class="label">قيد الانتظار</div>
+            </div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="showTab('orders', this)">
+                <i class="fas fa-shopping-bag"></i>
+                الطلبات
+            </button>
+            <button class="tab-btn" onclick="showTab('users', this)">
+                <i class="fas fa-users"></i>
+                العملاء
+            </button>
+        </div>
+        
+        <!-- Orders Tab -->
+        <div id="ordersTab" class="tab-content active">
+            <div class="admin-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>الخدمات</th>
+                            <th>المجموع</th>
+                            <th>الحالة</th>
+                            <th>التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody">
+                        <tr>
+                            <td colspan="6" class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>جاري تحميل الطلبات...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Users Tab -->
+        <div id="usersTab" class="tab-content">
+            <div class="admin-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>العميل</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>رقم الجوال</th>
+                            <th>تاريخ التسجيل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersBody">
+                        <tr>
+                            <td colspan="4" class="loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>جاري تحميل العملاء...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="database.js"></script>
+    
+    <script>
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        
+        // Format date
+        function formatDate(timestamp) {
+            if (!timestamp) return '-';
+            const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+            return date.toLocaleDateString('ar-SA', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // Get status text
+        function getStatusText(status) {
+            const texts = {
+                'pending': 'قيد الانتظار',
+                'processing': 'قيد التنفيذ',
+                'completed': 'مكتمل',
+                'cancelled': 'ملغي'
+            };
+            return texts[status] || status;
+        }
+        
+        // Show tab
+        function showTab(name, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(name + 'Tab').classList.add('active');
+        }
+        
+        // Change order status
+        async function changeStatus(orderNumber, newStatus) {
+            const success = await updateOrderStatus(orderNumber, newStatus);
+            if (success) {
+                showToast('تم تحديث حالة الطلب ✅');
+            } else {
+                showToast('حدث خطأ في تحديث الحالة ❌');
+            }
+        }
+        
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            
+            // Check admin access
+            if (!user || !user.isLoggedIn || !isAdmin(user.email)) {
+                document.getElementById('accessDenied').style.display = 'flex';
+                return;
+            }
+            
+            // Show admin panel
+            document.getElementById('adminPanel').style.display = 'block';
+            
+            // Load statistics
+            const stats = await getAdminStats();
+            if (stats) {
+                document.getElementById('statOrders').textContent = stats.totalOrders;
+                document.getElementById('statRevenue').textContent = stats.totalRevenue.toLocaleString();
+                document.getElementById('statUsers').textContent = stats.totalUsers;
+                document.getElementById('statPending').textContent = stats.pendingOrders;
+            }
+            
+            // Load orders
+            const orders = await getAllOrders();
+            const ordersBody = document.getElementById('ordersBody');
+            
+            if (orders.length === 0) {
+                ordersBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>لا توجد طلبات حتى الآن</p>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                ordersBody.innerHTML = orders.map(order => {
+                    const items = order.items || [];
+                    const itemNames = items.map(i => i.serviceName || i.name || 'خدمة').join('، ');
+                    
+                    return `
+                        <tr>
+                            <td><strong style="color: var(--primary);">${order.orderNumber}</strong></td>
+                            <td>${order.userEmail}</td>
+                            <td class="order-items" title="${itemNames}">${itemNames || '-'}</td>
+                            <td><strong>${order.total || 0} ريال</strong></td>
+                            <td>
+                                <select class="status-select" onchange="changeStatus('${order.orderNumber}', this.value)">
+                                    <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>قيد الانتظار</option>
+                                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>قيد التنفيذ</option>
+                                    <option value="completed" ${order.status === 'completed' ? 'selected' : ''}>مكتمل</option>
+                                    <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>ملغي</option>
+                                </select>
+                            </td>
+                            <td>${formatDate(order.createdAt)}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+            
+            // Load users
+            const users = await getAllUsers();
+            const usersBody = document.getElementById('usersBody');
+            
+            if (users.length === 0) {
+                usersBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <p>لا يوجد عملاء مسجلين</p>
+                        </td>
+                    </tr>
+                `;
+            } else {
+                usersBody.innerHTML = users.map(user => {
+                    const initials = ((user.firstName || '?')[0] + (user.lastName || '?')[0]).toUpperCase();
+                    
+                    return `
+                        <tr>
+                            <td>
+                                <div class="user-badge">
+                                    <div class="user-avatar">${initials}</div>
+                                    <strong>${user.firstName || ''} ${user.lastName || ''}</strong>
+                                </div>
+                            </td>
+                            <td>${user.email}</td>
+                            <td>${user.phone || '-'}</td>
+                            <td>${formatDate(user.createdAt)}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -827,6 +827,20 @@
     background: rgba(239, 68, 68, 0.1);
 }
 
+/* Admin Link Style */
+.dropdown-item.admin-link {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
+    color: #f59e0b;
+}
+
+.dropdown-item.admin-link:hover {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(234, 88, 12, 0.2) 100%);
+}
+
+.dropdown-item.admin-link i {
+    color: #f59e0b;
+}
+
 /* =============================================
    FLOATING CART BUTTON
    ============================================= */

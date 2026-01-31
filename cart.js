@@ -584,10 +584,16 @@ function proceedToCheckout() {
         items: Cart.getCart(),
         total: Cart.getCartTotal(),
         status: 'pending',
+        userEmail: user.email,
         createdAt: Date.now()
     };
     
-    // Save order to user's orders
+    // Save order to Firebase (main)
+    if (typeof saveOrderToDatabase === 'function') {
+        saveOrderToDatabase(order, user.email);
+    }
+    
+    // Save order to localStorage (backup)
     const ordersKey = 'orders_' + user.email;
     const orders = JSON.parse(localStorage.getItem(ordersKey)) || [];
     orders.unshift(order);

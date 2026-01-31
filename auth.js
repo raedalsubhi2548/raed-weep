@@ -80,34 +80,62 @@ function verifyOTP(enteredOTP) {
     }
 }
 
-function onAuthSuccess(email) {
+async function onAuthSuccess(email) {
     const user = { email: email, loggedInAt: Date.now(), isLoggedIn: true };
     localStorage.setItem('user', JSON.stringify(user));
 
-    const existingProfile = localStorage.getItem('userProfile_' + email);
+    // Try to get profile from Firebase first, then localStorage
+    let profile = null;
     
-    if (!existingProfile) {
-        showStep('profileStep');
-    } else {
+    if (typeof getUserFromDatabase === 'function') {
+        profile = await getUserFromDatabase(email);
+    }
+    
+    if (!profile) {
+        const localProfile = localStorage.getItem('userProfile_' + email);
+        if (localProfile) profile = JSON.parse(localProfile);
+    }
+    
+    if (profile) {
         closeAuthModal();
-        updateUIForLoggedInUser(JSON.parse(existingProfile));
-        showToast('مرحباً بعودتك! 👋', 'success');
+        updateUIForLoggedInUser(profile);
+        
+        // Check if admin
+        if (typeof isAdmin === 'function' && isAdmin(email)) {
+            showToast('مرحباً مدير المتجر! 👑', 'success');
+        } else {
+            showToast('مرحباً ' + profile.firstName + '! 👋', 'success');
+        }
+    } else {
+        showStep('profileStep');
     }
 
     currentOTP = null;
     otpExpiry = null;
 }
 
-function saveUserProfile(firstName, lastName, phone) {
+async function saveUserProfile(firstName, lastName, phone) {
+    if (!firstName || !lastName) {
+        showToast('يرجى إدخال الاسم', 'error');
+        return;
+    }
+    
     const profile = {
         email: currentEmail,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        phone: phone || '',
         createdAt: Date.now()
     };
     
+    // Save to localStorage (backup)
     localStorage.setItem('userProfile_' + currentEmail, JSON.stringify(profile));
+    
+    // Save to Firebase (main)
+    if (typeof saveUserToDatabase === 'function') {
+        await saveUserToDatabase(profile);
+    }
+    
     closeAuthModal();
     updateUIForLoggedInUser(profile);
     showToast('تم إنشاء حسابك بنجاح! 🎉', 'success');
@@ -204,6 +232,7 @@ function startResendTimer() {
 function updateUIForLoggedInUser(profile) {
     const loginBtn = document.getElementById('loginBtn');
     const userMenu = document.getElementById('userMenu');
+    const adminLink = document.getElementById('adminLink');
     
     if (loginBtn) loginBtn.style.display = 'none';
     if (userMenu) {
@@ -212,6 +241,15 @@ function updateUIForLoggedInUser(profile) {
         const userEmail = document.getElementById('userEmail');
         if (userName) userName.textContent = profile.firstName + ' ' + profile.lastName;
         if (userEmail) userEmail.textContent = profile.email;
+    }
+    
+    // Show admin link only for admin
+    if (adminLink) {
+        if (typeof isAdmin === 'function' && isAdmin(profile.email)) {
+            adminLink.style.display = 'flex';
+        } else {
+            adminLink.style.display = 'none';
+        }
     }
 }
 
