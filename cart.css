@@ -777,6 +777,36 @@
     height: 20px;
 }
 
+/* Quote Request Button - for services without fixed price */
+.btn-quote-request {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex: 1;
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-quote-request:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.btn-quote-request svg {
+    width: 24px;
+    height: 24px;
+}
+
 .panel-actions {
     display: flex;
     gap: var(--space-sm);
